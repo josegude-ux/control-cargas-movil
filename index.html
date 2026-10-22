@@ -79,7 +79,7 @@
 </div>
 <script type="module">
 import {parseDocumentPages,summarize} from './core.mjs';
-import {guardarOriginal,prepararMercancia,limpiarVista} from './printing.mjs';
+import {guardarOriginal,prepararMercancia,limpiarVista,borrarTodosOriginales} from './printing.mjs';
 const $=id=>document.getElementById(id);
 const APP_VERSION='0.5.4';
 const UPDATE_ENDPOINT='./version.json';
@@ -281,7 +281,13 @@ $('pdfs').addEventListener('change',async e=>{const files=[...e.target.files];if
  }
  notify(ok+' PDF importados.'+(errors.length?'\nNo importados:\n'+errors.join('\n'):'\nRevisa los avisos de verificación en cada carga.'),errors.length?'warn':'ok');e.target.value='';
 });
-$('clear').addEventListener('click',()=>{if(confirm('Se eliminarán todas las cargas y registros de tiempos de este dispositivo. ¿Continuar?')){loads=[];persist();list();notify('Se han eliminado las cargas.','warn')}});
+$('clear').addEventListener('click',async()=>{
+ if(!confirm('Se eliminarán todas las cargas, sus PDF originales y los registros de tiempos de este dispositivo. ¿Continuar?'))return;
+ try{
+  await borrarTodosOriginales();
+  loads=[];persist();list();notify('Cargas, PDF originales y registros eliminados de este dispositivo.','warn');
+ }catch(e){notify('No se han eliminado las cargas: '+(e.message||e),'warn')}
+});
 $('backup').addEventListener('click',()=>{const content={format:'control-cargas-backup',version:'0.5.4',created:new Date().toISOString(),loads,operators};const blob=new Blob([JSON.stringify(content,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Control_Cargas_Copia_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)});
 $('restoreInput').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const parsed=JSON.parse(await file.text());if(parsed.format!=='control-cargas-backup'||!Array.isArray(parsed.loads)||!Array.isArray(parsed.operators))throw new Error('Archivo de copia no compatible');if(!confirm('¿Restaurar la copia? Reemplazará las cargas guardadas en este iPhone.'))return;loads=parsed.loads;operators=parsed.operators;persist();list();notify('Copia restaurada correctamente.','ok')}catch(err){notify('No se ha restaurado la copia: '+err.message,'warn')}finally{e.target.value=''}});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{});
