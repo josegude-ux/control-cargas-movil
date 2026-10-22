@@ -18,6 +18,16 @@ export async function guardarOriginal(id,file){
   tx.onabort=()=>{db.close();reject(tx.error||new Error('Guardado cancelado'))};
  });
 }
+export async function borrarTodosOriginales(){
+ const db=await openDB();
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(STORE,'readwrite');
+  tx.objectStore(STORE).clear();
+  tx.oncomplete=()=>{db.close();resolve()};
+  tx.onerror=()=>{db.close();reject(tx.error||new Error('No se pudieron eliminar los PDF'))};
+  tx.onabort=()=>{db.close();reject(tx.error||new Error('Eliminación cancelada'))};
+ });
+}
 export async function leerOriginal(id){
  const db=await openDB();
  return new Promise((resolve,reject)=>{
