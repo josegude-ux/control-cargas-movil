@@ -1,4 +1,4 @@
 {
-  "version": "0.5.16",
-  "notes": "Corrección de impresión/Guardar PDF de estadísticas: evita la página en blanco al imprimir el historial, sin alterar los datos ni el diseño de pantalla."
+  "version": "0.5.17",
+  "notes": "Corrección de impresión de estadísticas y reparación de la versión interna mostrada por el actualizador. Datos locales intactos."
 }
