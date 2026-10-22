@@ -1,4 +1,4 @@
 {
-  "version": "0.5.17",
-  "notes": "Corrección de impresión de estadísticas y reparación de la versión interna mostrada por el actualizador. Datos locales intactos."
+  "version": "0.5.18",
+  "notes": "Estadísticas: generar PDF real, abrirlo para guardar o imprimir desde iPhone. Cabecera y versión instalada unificadas. Se conserva diseño y datos."
 }
