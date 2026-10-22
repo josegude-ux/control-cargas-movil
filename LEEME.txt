@@ -1,24 +1,11 @@
-CONTROL DE CARGAS MÓVIL v0.5.1 — GitHub Pages
+CONTROL DE CARGAS MÓVIL v0.5.2 - GitHub Pages
 
-NOVEDADES
-- Botón «Buscar actualización» junto al número de versión instalada.
-- Consulta un archivo version.json en GitHub Pages y, si hay versión nueva, recarga los archivos actualizados.
-- Service Worker actualizado para evitar versiones antiguas guardadas en caché.
-- Conserva cargas, operarios y horarios en el almacenamiento local del mismo iPhone (clave compatible con v0.4).
-- Mantiene todas las características de v0.5 (lectura de PDFs, validación, operarios, horarios, filtros, copias JSON).
+Actualización desde v0.5.1: botón Generar listado en cada carga y en su ficha; crea una vista previa imprimible A4 (iOS: Imprimir/Guardar PDF). Solo se genera cuando la lectura del PDF está verificada. Las cantidades 0 no aparecen; referencias SIN UBICACIÓN se detallan.
 
-PUBLICAR EN GITHUB
-1) Abre https://github.com/josegude-ux/control-cargas-movil
-2) Descomprime este ZIP y sube LOS SIETE archivos de aplicación de su raíz a main:
-   index.html, core.mjs, sw.js, manifest.webmanifest, icon.svg, icon-180.png, version.json
-   (Este LEEME.txt es opcional).
-3) Confirma «Commit changes» y espera la publicación de GitHub Pages.
-4) Abre https://josegude-ux.github.io/control-cargas-movil/ en Safari y comprueba que pone v0.5.1.
-5) En versiones futuras, actualiza también version.json, el número mostrado en index.html y la caché CACHE en sw.js. Así funcionará «Buscar actualización».
+Botón Finalizar en la lista para cargas en curso, con confirmación. Al iniciar una nueva carga por el mismo operario, las otras en curso de ese operario se cierran automáticamente a la misma hora exacta de inicio de la nueva. No se cierran cargas pendientes de otros trabajadores.
 
-IMPORTANTE
-- El botón de actualización funciona a partir de esta versión; no aparecerá en la v0.4 anterior hasta que subas los archivos.
-- No borres la aplicación instalada ni los datos del navegador. Recomendamos crear una copia de seguridad JSON antes de actualizar.
-- La primera vez que pases desde v0.4 puede hacer falta cerrar y reabrir la PWA o abrir en Safari para que actualice la caché antigua.
-- Sin conexión, la comprobación avisará y no borrará nada. Los datos permanecen guardados localmente en ese dispositivo.
-- No se ha probado físicamente en tu iPhone; hay que validar el botón después de subir la versión.
+Publicación: descomprime y sube TODOS los ficheros a la raíz del repositorio de GitHub Pages, sustituyendo anteriores. NO borres la aplicación ni sus datos locales en el iPhone. Pulsa Buscar actualización tras publicarla. Se mantienen las claves de localStorage de v0.4/v0.5.1.
+
+En el iPhone, pulsa Generar listado > Imprimir / Guardar PDF. El diálogo de impresión de iOS permite compartir/guardar el PDF mediante el sistema. La impresión suele caber en una cara A4; si hubiese un número excepcional de referencias SIN UBICACIÓN no se truncarán, pudiendo ocupar más de una página.
+
+Esta app no almacena el PDF original. Solo genera listados de cargas con mercancía verificada.

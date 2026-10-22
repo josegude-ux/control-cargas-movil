@@ -1,4 +1,4 @@
 {
-  "version": "0.5.1",
-  "notes": "Botón de actualización, versión visible y caché renovada sin borrar las cargas"
+  "version": "0.5.2",
+  "notes": "Listado A4 por formatos y pasillos, finalización rápida y cierre automático al iniciar otra carga del mismo operario"
 }
