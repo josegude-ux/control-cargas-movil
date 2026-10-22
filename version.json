@@ -1,4 +1,4 @@
 {
-  "version": "0.5.13",
-  "notes": "Estadísticas de preparación por operario con periodos, selector de trabajador, resumen de cargas finalizadas, tiempo, referencias, kg atribuibles, referencias/hora, kg/hora, tiempo medio y cargas mixtas. Comparativa y detalle, exportación CSV para Excel, impresión PDF con periodo indicado. No computa peso global de cargas mixtas como kg/h de Coruña. Datos locales y operarios/horarios preservados."
+  "version": "0.5.14",
+  "notes": "Matrícula en recuadro y palés al lado en la cabecera impresa. Lectura de 6G 4 como seis grandes y cuatro pequeños; si solo viene 8G, no se informa de pequeños. Se muestran también en el detalle; se mantienen originales, cargas, estadísticas, operarios y horarios."
 }
