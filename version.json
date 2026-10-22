@@ -1,4 +1,4 @@
 {
-  "version": "0.5.4",
-  "notes": "Impresion de mercancia original y resumen, sin envases ni palets."
+  "version": "0.5.5",
+  "notes": "Seleccion de cargas mediante casillas e impresion conjunta de mercancia original y resumen por carga."
 }
