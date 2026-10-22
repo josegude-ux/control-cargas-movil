@@ -1,4 +1,4 @@
 {
-  "version": "0.5.18",
-  "notes": "Estadísticas: generar PDF real, abrirlo para guardar o imprimir desde iPhone. Cabecera y versión instalada unificadas. Se conserva diseño y datos."
+  "version": "0.5.19",
+  "notes": "Estadísticas: PDF A4 apaisado con tablas legibles, tarjetas resumen y detalle en página separada. Sin cambios en la vista de la aplicación ni sus datos."
 }
