@@ -1,6 +1,14 @@
 // Lector por coordenadas para hojas de carga VolDistribución.
 // Los formatos pueden incluir cantidades decimales (por ejemplo KG).
 const numeric = raw => raw==null ? null : Number(String(raw).trim().replace(/\./g,'').replace(',','.'));
+// La columna de unidades puede llevar tres decimales: «110.000» significa 110.
+// No usar la interpretación de millares propia del campo Peso carga.
+const numericQty = raw => {
+  if(raw==null)return null;
+  const text=String(raw).trim().replace(/\s/g,'');
+  if(!/^\d+(?:[,.]\d+)?$/.test(text))return null;
+  return Number(text.replace(',','.'));
+};
 const isQty = text => /^\d+(?:[,.]\d+)?$/.test(String(text).trim());
 const validQty = val => typeof val==='number' && Number.isFinite(val) && val>=0;
 export function parseDocumentPages(pages, fileName='Documento.pdf') {
@@ -69,8 +77,8 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
    const top=n?(unique[n-1].y+r.y)/2:r.y-8;
    const bottom=n+1<unique.length?(r.y+unique[n+1].y)/2:Math.min(stop,r.y+45);
    const cells=zone.filter(i=>i.y>=top&&i.y<bottom);
-   const amounts=cells.filter(i=>i.x>page.width*.68&&i.x<page.width*.83&&isQty(i.text)).sort((a,b)=>Math.abs(a.y-r.y)-Math.abs(b.y-r.y));
-   const qty=amounts.length?numeric(amounts[0].text):null;
+   const amounts=cells.filter(i=>i.x>page.width*.68&&i.x<page.width*.77&&isQty(i.text)).sort((a,b)=>Math.abs(a.y-r.y)-Math.abs(b.y-r.y));
+   const qty=amounts.length?numericQty(amounts[0].text):null;
    const units=cells.filter(i=>i.x>=page.width*.88).sort((a,b)=>a.y-b.y||a.x-b.x).map(i=>i.text.trim());
    const rawUnit=units.join('').toUpperCase().replace(/[^A-ZÁÉÍÓÚÑ]/g,'');
    let unit=rawUnit;
@@ -84,12 +92,12 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
    else if(/^KGS?$|^KILOS?$|^KILOGRAMOS?$/.test(rawUnit))unit='KG';
    const description=cells.filter(i=>i.x>page.width*.18&&i.x<page.width*.67).sort((a,b)=>a.y-b.y||a.x-b.x).map(i=>i.text.trim()).filter(Boolean).join(' ').replace(/\s+/g,' ');
    const product={...r,qty,unit,description};
-   if(!validQty(qty)||!unit)warnings.push('Cantidad o unidad sin reconocer en '+r.sku);
+   if(!validQty(qty)||(qty>0&&!unit))warnings.push('Cantidad o unidad sin reconocer en '+r.sku);
    products.push(product);
   }
   if(refsLabel){
    const totalItem=items.find(i=>i.text.trim().toUpperCase()==='TOTAL:'&&Math.abs(i.y-refsLabel.y)<12);
-   if(totalItem){const q=items.filter(i=>i.x>page.width*.68&&i.x<page.width*.78&&Math.abs(i.y-totalItem.y)<9&&isQty(i.text)).sort((a,b)=>Math.abs(a.y-totalItem.y)-Math.abs(b.y-totalItem.y))[0];if(q)declaredTotal=numeric(q.text)}
+   if(totalItem){const q=items.filter(i=>i.x>page.width*.68&&i.x<page.width*.78&&Math.abs(i.y-totalItem.y)<9&&isQty(i.text)).sort((a,b)=>Math.abs(a.y-totalItem.y)-Math.abs(b.y-totalItem.y))[0];if(q)declaredTotal=numericQty(q.text)}
    merchandise=false;
   }else if(controlLabel||palletsLabel){merchandise=false}
  }
@@ -107,7 +115,7 @@ export function summarize(products){
  const units={},aisles={},unlocated=[];
  for(const p of products){
   const qty=p.qty;
-  if(!validQty(qty))continue;
+  if(!validQty(qty)||qty===0)continue;
   const unit=p.unit||'DESCONOCIDO';units[unit]=(units[unit]||0)+qty;
   const aisle=p.location==='ZFRIO'?'FRÍO':p.location?p.location[0]:'SIN UBICACIÓN';
   if(!aisles[aisle])aisles[aisle]={};aisles[aisle][unit]=(aisles[aisle][unit]||0)+qty;
