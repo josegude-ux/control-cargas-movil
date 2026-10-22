@@ -1,11 +1,10 @@
-CONTROL DE CARGAS MÓVIL v0.5.2 - GitHub Pages
+CONTROL DE CARGAS MÓVIL v0.5.3 — Corrección de formatos decimales
 
-Actualización desde v0.5.1: botón Generar listado en cada carga y en su ficha; crea una vista previa imprimible A4 (iOS: Imprimir/Guardar PDF). Solo se genera cuando la lectura del PDF está verificada. Las cantidades 0 no aparecen; referencias SIN UBICACIÓN se detallan.
+1. Descomprime el ZIP y sube sus archivos a la raíz del repositorio GitHub Pages (sustituye los anteriores).
+2. En la app instalada, pulsa «Buscar actualización».
+3. Vuelve a importar Hoja de carga vertical3.pdf (LP26-19433), SIN borrar la carga existente. El registro de operario e inicio/final se conserva al reimportar.
+4. Comprueba 97 referencias, 142 cajas, 72 botellas, 2 barriles y 3,195 KG, y genera el listado A4.
+5. PRD0017103 debe aparecer en SIN UBICACIÓN; K109-3 se agrupa en el pasillo K.
 
-Botón Finalizar en la lista para cargas en curso, con confirmación. Al iniciar una nueva carga por el mismo operario, las otras en curso de ese operario se cierran automáticamente a la misma hora exacta de inicio de la nueva. No se cierran cargas pendientes de otros trabajadores.
-
-Publicación: descomprime y sube TODOS los ficheros a la raíz del repositorio de GitHub Pages, sustituyendo anteriores. NO borres la aplicación ni sus datos locales en el iPhone. Pulsa Buscar actualización tras publicarla. Se mantienen las claves de localStorage de v0.4/v0.5.1.
-
-En el iPhone, pulsa Generar listado > Imprimir / Guardar PDF. El diálogo de impresión de iOS permite compartir/guardar el PDF mediante el sistema. La impresión suele caber en una cara A4; si hubiese un número excepcional de referencias SIN UBICACIÓN no se truncarán, pudiendo ocupar más de una página.
-
-Esta app no almacena el PDF original. Solo genera listados de cargas con mercancía verificada.
+No elimines la app ni sus datos. Recomendamos usar «Guardar copia» antes de actualizar.
+El lector sigue excluyendo CONTROL ENVASES y PALETS y bloqueando listados que no puede verificar.

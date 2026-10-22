@@ -1,4 +1,4 @@
 {
-  "version": "0.5.2",
-  "notes": "Listado A4 por formatos y pasillos, finalización rápida y cierre automático al iniciar otra carga del mismo operario"
+  "version": "0.5.3",
+  "notes": "Admite mercancía con cantidades decimales (KG), totales decimales y ubicaciones especiales como K109-3; mantiene controles y datos locales"
 }
