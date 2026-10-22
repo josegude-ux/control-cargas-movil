@@ -1,4 +1,4 @@
 {
-  "version": "0.5.7",
-  "notes": "Imprime únicamente mercancía COR_01_COR y su resumen por formatos y pasillos en PDF con varios almacenes; excluye COR_02_NAR, envases, palés y firmas. En cargas mixtas el peso del vehículo se identifica como global. Reimporta el PDF para recalcular el resumen."
+  "version": "0.5.8",
+  "notes": "Corrige cantidades con decimales (110.000 = 110), lee solo Total unidades de MERCANCÍA e ignora Devoluciones previstas. Las líneas con cantidad cero no bloquean la validación. Mantiene el filtro COR_01_COR, la impresión original, los operarios y los horarios."
 }
