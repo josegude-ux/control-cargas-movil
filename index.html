@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#142e48"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Control Cargas">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg"><link rel="apple-touch-icon" href="./icon-180.png">
-<title>Control de Cargas Móvil v0.5.15</title>
+<title>Control de Cargas Móvil v0.5.16</title>
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#182e44;background:#f2f5f9;font-size:15px;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-width:310px}button,input,select{font:inherit}button{cursor:pointer}.head{background:linear-gradient(135deg,#203d5b,#102840);color:#fff;padding:calc(24px + env(safe-area-inset-top,0px)) 20px 25px}.head .eyebrow{font-size:11px;opacity:.8;letter-spacing:1.4px}.head h1{font-size:25px;margin:9px 0 0;letter-spacing:-.6px}.wrap{max-width:850px;padding:18px;margin:auto}h2{font-size:22px;margin:0 0 6px;letter-spacing:-.5px}h3{font-size:17px;margin:0 0 10px}h4{font-size:14px;margin:16px 0 9px}.muted{color:#6a7c90;font-size:13px;line-height:1.5}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;background:#227ab8;color:white;border-radius:12px;padding:13px 17px;font-weight:750;min-height:46px;text-decoration:none;white-space:nowrap}.btn.light{background:#e8f0f7;color:#1a4e73}.btn.ghost{background:white;color:#22567a;border:1px solid #d8e3ed}.btn:disabled{opacity:.48;cursor:default}.toolbar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:13px}.notice{padding:13px;border-radius:13px;background:#e5f1fb;color:#174b71;font-size:13px;line-height:1.5;margin-top:15px;white-space:pre-wrap}.notice.warn{background:#fff2df;color:#74471c}.notice.ok{background:#e5f4ed;color:#215d3d}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}.metric{background:white;border-radius:15px;padding:17px 8px;text-align:center;box-shadow:0 2px 8px #12324c08}.metric strong{display:block;font-size:23px}.metric span{color:#6e8294;font-size:11px}.panel{background:white;border-radius:18px;padding:17px;box-shadow:0 3px 13px #12324c0d;margin-top:15px}.line{display:flex;align-items:center;justify-content:space-between;gap:9px}.list-btn{display:block;text-align:left;width:100%;background:#fff;color:inherit;border:1px solid #dfe7ef;border-radius:14px;padding:15px 14px;margin-top:10px}.list-btn:active{background:#f1f6fb}.list-btn .name{font-size:17px;font-weight:750}.list-btn .kg{font-size:14px;font-weight:750;white-space:nowrap}.mini{font-size:13px;color:#687e90;margin:10px 0}.footrow{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.tag{border-radius:8px;padding:6px 9px;font-size:12px;white-space:nowrap;background:#f5ead5;color:#805a1b}.tag.running{background:#e0efff;color:#195a9a}.tag.done{background:#def3e7;color:#206a46}
 .validation-overview{margin:8px 0 2px;font-size:13px;color:#33506a;line-height:1.6}
@@ -116,7 +116,8 @@
 @media(max-width:650px){.stats-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.stats-table{font-size:11px}}
 @media print{
  body.stats-print #reportScreen{display:none!important}
- body.stats-print #statsScreen{display:block!important;position:static!important;overflow:visible!important;background:#fff!important}
+ body.stats-print{height:auto!important;overflow:visible!important}
+ body.stats-print #statsScreen{display:block!important;position:relative!important;inset:auto!important;z-index:auto!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;background:#fff!important}
  body.stats-print .stats-controls{display:none!important}
  body.stats-print #statsScreen .wrap{padding:0!important;max-width:none!important}
  body.stats-print #statsScreen .panel{box-shadow:none!important;border:0!important;padding:6px 0!important;margin:0 0 15px!important}
@@ -431,9 +432,10 @@ function renderStats(){
 $('openStats').addEventListener('click',()=>{renderStats();$('statsScreen').classList.add('show');$('statsScreen').scrollTop=0});
 $('closeStats').addEventListener('click',()=>{$('statsScreen').classList.remove('show');document.body.classList.remove('stats-print')});
 for(const name of ['statsPeriod','statsOperator','statsFrom','statsTo'])$(name).addEventListener('change',renderStats);
-$('statsPrint').addEventListener('click',()=>{
+$('statsPrint').addEventListener('click',async()=>{
  renderStats();
  document.body.classList.add('stats-print');
+ await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
  window.print();
 });
 window.addEventListener('afterprint',()=>document.body.classList.remove('stats-print'));
