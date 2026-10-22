@@ -1,4 +1,4 @@
 {
-  "version": "0.5.11",
-  "notes": "Permite imprimir cargas con incidencias, individualmente o en bloque, sin frenar las verificadas. Cada hoja original de MERCANCÍA se acompaña de resumen PROVISIONAL y advertencia con errores. Se pide confirmación para imprimir un lote con incidencias; no se incluye control de envases. Si falta un PDF original aparece una hoja de aviso para reimportarlo. Mantiene datos de operarios y horarios."
+  "version": "0.5.12",
+  "notes": "Incorpora estadísticas por preparador con filtros de mes actual, últimos 7 días, historial y fechas personalizadas; cargas finalizadas, tiempo, referencias/hora, kilos/hora sobre cargas no mixtas, comparativa y detalle, exportación CSV compatible con Excel e impresión/PDF. Mantiene registros locales, selección e impresión de cargas. Las cargas COR_01_COR con peso global mixto no se usan en cálculo de kg/h."
 }
