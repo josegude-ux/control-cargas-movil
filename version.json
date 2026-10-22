@@ -1,4 +1,4 @@
 {
- "version":"0.5.6",
- "notes":"Nuevo botón Seleccionar todas para impresión múltiple, además de Marcar visibles y Desmarcar."
+  "version": "0.5.7",
+  "notes": "Imprime únicamente mercancía COR_01_COR y su resumen por formatos y pasillos en PDF con varios almacenes; excluye COR_02_NAR, envases, palés y firmas. En cargas mixtas el peso del vehículo se identifica como global. Reimporta el PDF para recalcular el resumen."
 }
