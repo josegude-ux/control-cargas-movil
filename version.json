@@ -1,4 +1,4 @@
 {
-  "version": "0.5.15",
-  "notes": "Listados de preparación por pasillos con sombreado alterno en filas, letras de pasillo resaltadas, separadores y total destacado. Estilo de impresión A4 en blanco y negro. No se alteran cantidades, pesos, datos originales, operarios, horarios ni estadísticas."
+  "version": "0.5.16",
+  "notes": "Corrección de impresión/Guardar PDF de estadísticas: evita la página en blanco al imprimir el historial, sin alterar los datos ni el diseño de pantalla."
 }
