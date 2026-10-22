@@ -1,4 +1,4 @@
 {
-  "version": "0.5.12",
-  "notes": "Incorpora estadísticas por preparador con filtros de mes actual, últimos 7 días, historial y fechas personalizadas; cargas finalizadas, tiempo, referencias/hora, kilos/hora sobre cargas no mixtas, comparativa y detalle, exportación CSV compatible con Excel e impresión/PDF. Mantiene registros locales, selección e impresión de cargas. Las cargas COR_01_COR con peso global mixto no se usan en cálculo de kg/h."
+  "version": "0.5.13",
+  "notes": "Estadísticas de preparación por operario con periodos, selector de trabajador, resumen de cargas finalizadas, tiempo, referencias, kg atribuibles, referencias/hora, kg/hora, tiempo medio y cargas mixtas. Comparativa y detalle, exportación CSV para Excel, impresión PDF con periodo indicado. No computa peso global de cargas mixtas como kg/h de Coruña. Datos locales y operarios/horarios preservados."
 }
