@@ -78,7 +78,9 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
    const bottom=n+1<unique.length?(r.y+unique[n+1].y)/2:Math.min(stop,r.y+45);
    const cells=zone.filter(i=>i.y>=top&&i.y<bottom);
    const amounts=cells.filter(i=>i.x>page.width*.68&&i.x<page.width*.77&&isQty(i.text)).sort((a,b)=>Math.abs(a.y-r.y)-Math.abs(b.y-r.y));
-   const qty=amounts.length?numericQty(amounts[0].text):null;
+   // Un campo Total unidades vacío significa mercancía no solicitada: 0, no error.
+   // No se toma el número de la columna Devoluciones previstas.
+   const qty=amounts.length?numericQty(amounts[0].text):0;
    const units=cells.filter(i=>i.x>=page.width*.88).sort((a,b)=>a.y-b.y||a.x-b.x).map(i=>i.text.trim());
    const rawUnit=units.join('').toUpperCase().replace(/[^A-ZÁÉÍÓÚÑ]/g,'');
    let unit=rawUnit;
