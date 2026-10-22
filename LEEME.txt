@@ -1,0 +1,39 @@
+CONTROL DE CARGAS MÓVIL v0.5 — iPHONE / GITHUB PAGES
+
+REPOSITORIO: https://github.com/josegude-ux/control-cargas-movil
+
+SUBIR AL REPOSITORIO
+1. Descomprimir el ZIP en Archivos (iPhone) o en tu ordenador.
+2. Abrir el repositorio de GitHub y pulsar Add file → Upload files.
+3. Subir los 6 archivos sueltos situados en la raíz del ZIP:
+   - index.html
+   - core.mjs
+   - sw.js
+   - manifest.webmanifest
+   - icon.svg
+   - icon-180.png
+4. Confirmar que GitHub reemplaza los archivos del mismo nombre.
+5. Pulsar Commit changes en la rama main.
+6. Abrir https://josegude-ux.github.io/control-cargas-movil/ y comprobar que aparece v0.5.
+   Si aparece v0.4, recarga Safari, cierra la aplicación instalada y ábrela de nuevo.
+
+FUNCIONES v0.5
+- Importación múltiple de PDF desde Archivos, incluido OneDrive.
+- Nº carga, peso, nº referencias, repartidor, matrícula y visitas.
+- Lectura de mercancía por formato y pasillo, incluidas referencias sin ubicación.
+- Validación: solo muestra recuentos cuando coinciden número de referencias y total de unidades.
+- Operarios personalizables, inicio/final, duración y corrección de horarios.
+- Estados y filtros. Copias de seguridad JSON y restauración.
+- Cabecera adaptada al área segura del iPhone.
+
+DATOS EXISTENTES
+Se conserva la clave localStorage «control_cargas_movil_v04» de la versión anterior.
+Por seguridad, antes de modificar nada, no borres la app instalada ni los datos de Safari.
+Los PDFs originales no se guardan. Para visualizar el nuevo desglose en cargas antiguas, vuelve a importar esos PDF.
+Los datos solo se mantienen en el mismo dispositivo y perfil del navegador. Haz copia JSON para protegerlos.
+
+LIMITACIONES
+La librería PDF.js se descarga desde CDN, por lo que la primera importación requiere conexión.
+El lector de columnas está validado con la muestra LP26-19448; otros diseños de PDF pueden necesitar ajustes.
+Si no hay coincidencia de totales, no presenta el desglose como verificado.
+No se ha comprobado aún el funcionamiento real de esta v0.5 en Safari para iPhone.

@@ -1,18 +1,1 @@
-{
-  "name": "Control de Cargas Móvil",
-  "short_name": "Control Cargas",
-  "id": "./",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#f3f6fa",
-  "theme_color": "#152d48",
-  "icons": [
-    {
-      "src": "./icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
-  ]
-}
+{"name":"Control de Cargas Móvil","short_name":"Control Cargas","description":"Control local de preparación de cargas desde PDF","start_url":"./","scope":"./","display":"standalone","id":"./","background_color":"#f2f5f9","theme_color":"#142e48","icons":[{"src":"./icon-180.png","sizes":"180x180","type":"image/png","purpose":"any"},{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
