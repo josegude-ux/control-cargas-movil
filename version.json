@@ -1,4 +1,4 @@
 {
-  "version": "0.5.14",
-  "notes": "Matrícula en recuadro y palés al lado en la cabecera impresa. Lectura de 6G 4 como seis grandes y cuatro pequeños; si solo viene 8G, no se informa de pequeños. Se muestran también en el detalle; se mantienen originales, cargas, estadísticas, operarios y horarios."
+  "version": "0.5.15",
+  "notes": "Listados de preparación por pasillos con sombreado alterno en filas, letras de pasillo resaltadas, separadores y total destacado. Estilo de impresión A4 en blanco y negro. No se alteran cantidades, pesos, datos originales, operarios, horarios ni estadísticas."
 }
