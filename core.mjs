@@ -4,6 +4,25 @@ const numeric = raw => raw==null ? null : Number(String(raw).trim().replace(/\./
 const isQty = text => /^\d+(?:[,.]\d+)?$/.test(String(text).trim());
 const validQty = val => typeof val==='number' && Number.isFinite(val) && val>=0;
 export function parseDocumentPages(pages, fileName='Documento.pdf') {
+ // Business Central puede incluir varios almacenes dentro del MISMO LP.
+ // La preparación de Coruña corresponde exclusivamente a COR_01_COR.
+ const warehouseOf=page=>{
+  const line=page.items.map(it=>it.text||'').join(' ');
+  const hit=line.match(/Almac[eé]n\s*:\s*(COR[\s_-]*0?\d{1,2}[\s_-]*[A-Z]{2,})/i);
+  if(!hit)return null;
+  const cleaned=hit[1].toUpperCase().replace(/[\s-]+/g,'_').replace(/_+/g,'_');
+  return cleaned.replace(/^COR_1_/,'COR_01_').replace(/^COR_2_/,'COR_02_');
+ };
+ const identified=pages.map(warehouseOf);
+ const warehouses=[...new Set(identified.filter(Boolean))];
+ const mixedWarehouse=warehouses.length>1;
+ if(warehouses.length){
+  let active=null;
+  pages=pages.filter((page,index)=>{
+   if(identified[index])active=identified[index];
+   return active==='COR_01_COR';
+  });
+ }
  const every=pages.flatMap(p=>p.items.map(it=>({...it,page:p.number})));
  const textAll=every.map(i=>i.text).join(' ').replace(/\s+/g,' ');
  const extract=(regexp,source=textAll)=>source.match(regexp)?.[1]??null;
@@ -73,6 +92,7 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
    merchandise=false;
   }else if(controlLabel||palletsLabel){merchandise=false}
  }
+ if(warehouses.length&&!pages.length)warnings.push('El PDF no contiene mercancía de COR_01_COR');
  const sum=products.reduce((a,p)=>a+Number(p.qty||0),0);
  const countOK=refs!==null&&refs===products.length;
  const amountOK=declaredTotal===null?null:Math.abs(declaredTotal-sum)<0.000001;
@@ -80,7 +100,7 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
  if(amountOK===false)warnings.push('Suma detectada: '+sum.toFixed(3)+' / declarada: '+declaredTotal);
  if(declaredTotal===null)warnings.push('No se pudo contrastar el total del PDF');
  const verified=countOK&&amountOK===true&&warnings.length===0;
- return {id,weight,refs,visits,driver,plate,date,source:fileName,products,declaredTotal,actualTotal:sum,verified,warnings};
+ return {id,weight,refs,visits,driver,plate,date,source:fileName,products,declaredTotal,actualTotal:sum,verified,warnings,warehouse:warehouses.length?'COR_01_COR':null,mixedWarehouse,availableWarehouses:warehouses};
 }
 export function summarize(products){
  const units={},aisles={},unlocated=[];
