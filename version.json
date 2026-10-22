@@ -1,4 +1,4 @@
 {
-  "version": "0.5.3",
-  "notes": "Admite mercancía con cantidades decimales (KG), totales decimales y ubicaciones especiales como K109-3; mantiene controles y datos locales"
+  "version": "0.5.4",
+  "notes": "Impresion de mercancia original y resumen, sin envases ni palets."
 }
