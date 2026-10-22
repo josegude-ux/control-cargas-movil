@@ -16,6 +16,7 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
  const identified=pages.map(warehouseOf);
  const warehouses=[...new Set(identified.filter(Boolean))];
  const mixedWarehouse=warehouses.length>1;
+ if(warehouses.length&&!warehouses.includes('COR_01_COR'))throw new Error('El PDF no contiene el bloque de mercancía COR_01_COR');
  if(warehouses.length){
   let active=null;
   pages=pages.filter((page,index)=>{
