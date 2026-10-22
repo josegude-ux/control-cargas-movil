@@ -1,6 +1,6 @@
 // Cache versionada. Conserva el localStorage y no interfiere con otras PWA.
-const CACHE='control-cargas-movil-v053';
-const ASSETS=['./','./index.html','./core.mjs','./version.json','./manifest.webmanifest','./icon.svg','./icon-180.png'];
+const CACHE='control-cargas-movil-v054';
+const ASSETS=['./','./index.html','./core.mjs','./printing.mjs','./version.json','./manifest.webmanifest','./icon.svg','./icon-180.png'];
 self.addEventListener('install',event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
