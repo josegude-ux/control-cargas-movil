@@ -94,11 +94,11 @@ export function limpiarVista(contenedor){
  for(const url of imageURLs)URL.revokeObjectURL(url);
  imageURLs=[];if(contenedor)contenedor.replaceChildren();
 }
-export async function prepararMercancia(id,contenedor){
+export async function prepararMercancia(id,contenedor,{append=false}={}){
  const original=await leerOriginal(id);
  if(!original)throw new Error('No se conserva el PDF de esta carga. Vuelve a importarlo desde Archivos o OneDrive; se mantendrán el operario y los horarios.');
  const images=await recortarMercancia(original);
- limpiarVista(contenedor);
+ if(!append)limpiarVista(contenedor);
  for(let i=0;i<images.length;i++){
   const url=URL.createObjectURL(images[i]);imageURLs.push(url);
   const page=document.createElement('div');page.className='original-print-page';
