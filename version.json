@@ -1,4 +1,4 @@
 {
-  "version": "0.5.20",
-  "notes": "Corregido fallo CONT al generar PDF de Estadísticas. Se mantienen las tablas A4 horizontales y los datos locales."
+  "version": "0.5.21",
+  "notes": "Estadísticas: eliminado el apartado Observaciones del PDF generado. Se mantienen el resumen, la comparativa y el detalle de cargas en tablas A4 horizontales. Sin cambiar los datos ni el aspecto de la aplicación."
 }
