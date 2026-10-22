@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#142e48"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Control Cargas">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg"><link rel="apple-touch-icon" href="./icon-180.png">
-<title>Control de Cargas Móvil v0.5.11</title>
+<title>Control de Cargas Móvil v0.5.12</title>
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#182e44;background:#f2f5f9;font-size:15px;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-width:310px}button,input,select{font:inherit}button{cursor:pointer}.head{background:linear-gradient(135deg,#203d5b,#102840);color:#fff;padding:calc(24px + env(safe-area-inset-top,0px)) 20px 25px}.head .eyebrow{font-size:11px;opacity:.8;letter-spacing:1.4px}.head h1{font-size:25px;margin:9px 0 0;letter-spacing:-.6px}.wrap{max-width:850px;padding:18px;margin:auto}h2{font-size:22px;margin:0 0 6px;letter-spacing:-.5px}h3{font-size:17px;margin:0 0 10px}h4{font-size:14px;margin:16px 0 9px}.muted{color:#6a7c90;font-size:13px;line-height:1.5}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;background:#227ab8;color:white;border-radius:12px;padding:13px 17px;font-weight:750;min-height:46px;text-decoration:none;white-space:nowrap}.btn.light{background:#e8f0f7;color:#1a4e73}.btn.ghost{background:white;color:#22567a;border:1px solid #d8e3ed}.btn:disabled{opacity:.48;cursor:default}.toolbar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:13px}.notice{padding:13px;border-radius:13px;background:#e5f1fb;color:#174b71;font-size:13px;line-height:1.5;margin-top:15px;white-space:pre-wrap}.notice.warn{background:#fff2df;color:#74471c}.notice.ok{background:#e5f4ed;color:#215d3d}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}.metric{background:white;border-radius:15px;padding:17px 8px;text-align:center;box-shadow:0 2px 8px #12324c08}.metric strong{display:block;font-size:23px}.metric span{color:#6e8294;font-size:11px}.panel{background:white;border-radius:18px;padding:17px;box-shadow:0 3px 13px #12324c0d;margin-top:15px}.line{display:flex;align-items:center;justify-content:space-between;gap:9px}.list-btn{display:block;text-align:left;width:100%;background:#fff;color:inherit;border:1px solid #dfe7ef;border-radius:14px;padding:15px 14px;margin-top:10px}.list-btn:active{background:#f1f6fb}.list-btn .name{font-size:17px;font-weight:750}.list-btn .kg{font-size:14px;font-weight:750;white-space:nowrap}.mini{font-size:13px;color:#687e90;margin:10px 0}.footrow{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.tag{border-radius:8px;padding:6px 9px;font-size:12px;white-space:nowrap;background:#f5ead5;color:#805a1b}.tag.running{background:#e0efff;color:#195a9a}.tag.done{background:#def3e7;color:#206a46}
 .validation-overview{margin:8px 0 2px;font-size:13px;color:#33506a;line-height:1.6}
@@ -76,13 +76,44 @@
   .report-paper .report-facts{font-size:9px!important}
   .report-paper tr{break-inside:avoid;page-break-inside:avoid}
 }
+
+/* Estadísticas de preparación: lectura local sin servidores ni librerías nuevas */
+.stats-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.stats-filter{flex:1 1 180px;min-width:125px}
+.stats-filter label{display:block;font-size:12px;font-weight:700;margin-bottom:5px;color:#385775}
+.stats-filter select,.stats-filter input[type=date]{min-height:42px;padding:9px;border:1px solid #cddce7;border-radius:10px;background:#fff;color:#193754;width:100%;font-size:14px}
+.stats-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.stats-metric{background:#f1f5f9;border-radius:12px;padding:12px;min-width:0}
+.stats-metric strong{display:block;font-size:21px;word-break:break-word}
+.stats-metric small{display:block;color:#637990;margin-top:5px;line-height:1.3}
+.stats-scroll{max-width:100%;overflow-x:auto}
+.stats-table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+.stats-table th,.stats-table td{padding:9px 8px;text-align:right;border-bottom:1px solid #dce5ed}
+.stats-table th:first-child,.stats-table td:first-child{text-align:left}
+.stats-table th{background:#eaf0f5;font-weight:750}
+.stats-info{background:#fff3dd;border-radius:12px;padding:13px;color:#694718;font-size:12px;line-height:1.5;margin-top:12px}
+.stats-empty{padding:18px;color:#74899d;text-align:center}
+@media(max-width:650px){.stats-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.stats-table{font-size:11px}}
+@media print{
+ body.stats-print #reportScreen{display:none!important}
+ body.stats-print #statsScreen{display:block!important;position:static!important;overflow:visible!important;background:#fff!important}
+ body.stats-print .stats-controls{display:none!important}
+ body.stats-print #statsScreen .wrap{padding:0!important;max-width:none!important}
+ body.stats-print #statsScreen .panel{box-shadow:none!important;border:0!important;padding:6px 0!important;margin:0 0 15px!important}
+ body.stats-print #statsScreen .stats-scroll{overflow:visible!important}
+ body.stats-print #statsScreen .stats-table{white-space:normal!important;font-size:9px!important}
+ body.stats-print #statsScreen .stats-table th,body.stats-print #statsScreen .stats-table td{padding:5px 3px!important}
+ body.stats-print #statsScreen .stats-metric{background:#f5f6f8!important;print-color-adjust:exact}
+ body.stats-print #statsScreen h2{font-size:18px}
+ body.stats-print #statsScreen h3{font-size:14px}
+}
 </style>
 </head>
 <body>
-<header class="head"><div class="eyebrow">APLICACIÓN INDEPENDIENTE · V0.5.11</div><h1>Control de Cargas Móvil</h1></header>
+<header class="head"><div class="eyebrow">APLICACIÓN INDEPENDIENTE · V0.5.12</div><h1>Control de Cargas Móvil</h1></header>
 <main class="wrap">
-<div class="toolbar"><div><h2>Preparación de cargas</h2><div class="muted">Ordenadas por peso · Guardadas en este iPhone</div></div><label class="btn" for="pdfs">＋ Importar PDF</label><input id="pdfs" type="file" accept="application/pdf,.pdf" multiple class="hidden"></div>
-<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.11</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
+<div class="toolbar"><div><h2>Preparación de cargas</h2><div class="muted">Ordenadas por peso · Datos locales de este dispositivo</div></div><div class="stats-toolbar"><button class="btn light" type="button" id="openStats">▥ Estadísticas</button><label class="btn" for="pdfs">＋ Importar PDF</label><input id="pdfs" type="file" accept="application/pdf,.pdf" multiple class="hidden"></div></div>
+<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.12</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
 <div id="feedback" class="notice" role="status" aria-live="polite">Puedes seleccionar varias hojas de carga desde Archivos o OneDrive.</div>
 <div class="cards"><div class="metric"><strong id="nLoads">0</strong><span>Cargas</span></div><div class="metric"><strong id="nRefs">0</strong><span>Referencias</span></div><div class="metric"><strong id="nWeight">0</strong><span>Kg totales</span></div></div>
 <div id="validationOverview" class="validation-overview" aria-live="polite"></div>
@@ -90,6 +121,29 @@
 <section class="panel"><div class="line"><div><h3>Cargas importadas</h3><div class="muted">Pulsa una carga para registrar su preparación.</div></div></div><div class="batch-toolbar"><button class="btn light" id="selectAll" type="button">☑ Seleccionar todas</button><button class="btn light" id="selectVisible" type="button">Marcar visibles</button><button class="btn ghost" id="clearSelection" type="button">Desmarcar</button><button class="btn" id="printSelected" type="button" disabled>▤ Imprimir seleccionadas (0)</button></div><div id="loadList"></div><div class="bottom"><button class="btn light" id="backup">Guardar copia</button><label class="btn ghost" for="restoreInput">Restaurar copia</label><input id="restoreInput" type="file" accept="application/json,.json" class="hidden"><button class="btn ghost" id="clear">Eliminar cargas</button></div></section>
 <p class="smallprint">Originales PDF guardados solo en este iPhone · Copias JSON sin PDF · Datos locales, sin envío a servidor</p>
 </main>
+
+<div class="screen" id="statsScreen" aria-label="Estadísticas de preparadores" style="z-index:55">
+ <header class="detail-head stats-controls"><button class="back" id="closeStats" type="button">← Volver a cargas</button><h2>Estadísticas de preparación</h2><p style="opacity:.85;margin-bottom:0">Rendimiento por operario · Registros de este dispositivo</p></header>
+ <main class="wrap">
+  <section class="panel">
+   <div class="stats-toolbar stats-controls">
+    <div class="stats-filter"><label for="statsPeriod">Periodo</label><select id="statsPeriod"><option value="month">Mes actual</option><option value="week">Últimos 7 días</option><option value="all">Todo el historial</option><option value="custom">Personalizado</option></select></div>
+    <div class="stats-filter"><label for="statsOperator">Preparador</label><select id="statsOperator"><option value="">Todos los operarios</option></select></div>
+    <div class="stats-filter" id="statsFromWrap" hidden><label for="statsFrom">Desde</label><input type="date" id="statsFrom"></div>
+    <div class="stats-filter" id="statsToWrap" hidden><label for="statsTo">Hasta</label><input type="date" id="statsTo"></div>
+   </div>
+   <div class="stats-metrics" id="statsMetrics"></div>
+   <div id="statsNote" class="stats-info"></div>
+   <div class="stats-toolbar stats-controls" style="margin-top:14px">
+    <button class="btn light" id="statsExport" type="button">⇩ Exportar CSV para Excel</button>
+    <button class="btn" id="statsPrint" type="button">▤ Imprimir / Guardar PDF</button>
+   </div>
+  </section>
+  <section class="panel"><h3>Comparativa de preparadores</h3><div class="stats-scroll" id="statsByOperator"></div></section>
+  <section class="panel"><h3>Detalle de las cargas finalizadas</h3><div class="stats-scroll" id="statsDetail"></div></section>
+  <p class="smallprint">Calculado con la hora de inicio y finalización. Los pesos globales de cargas mixtas Coruña/Ferrol se excluyen del cálculo de kg/h.</p>
+ </main>
+</div>
 <div class="screen" id="detail"><div class="detail-head"><button class="back" id="back">← Volver a cargas</button><h2 id="detailId"></h2><div id="detailDriver" style="opacity:.78;margin-top:8px"></div></div><div class="wrap">
 <section class="panel"><h3>Información de carga</h3><div class="d-grid" id="detailData"></div></section>
 <section class="panel"><div class="line"><h3>Resumen de mercancía</h3><button class="btn light" type="button" id="detailReport">▤ Generar listado</button></div><div id="verification"></div><div id="formats"></div><div id="aisles"></div><div id="unlocated"></div></section>
@@ -103,7 +157,7 @@
 import {parseDocumentPages,summarize} from './core.mjs';
 import {guardarOriginal,prepararMercancia,limpiarVista,borrarTodosOriginales,leerOriginal} from './printing.mjs';
 const $=id=>document.getElementById(id);
-const APP_VERSION='0.5.11';
+const APP_VERSION='0.5.12';
 const UPDATE_ENDPOINT='./version.json';
 const compareVersions=(v1,v2)=>{
  const a=String(v1).split('.').map(x=>Number(x)||0),b=String(v2).split('.').map(x=>Number(x)||0);
@@ -263,7 +317,110 @@ $('finish').addEventListener('click',()=>{
  if(chosen.finished)return alert('Ya consta como finalizada');
  finalizeLoad(chosen,new Date().toISOString());persist();list();openDetail(chosen.id);
 });
-$('saveHours').addEventListener('click',()=>{if(!chosen)return;let a=$('editStart').value,b=$('editEnd').value;if(b&&!a)return alert('Introduce primero el inicio');if(a&&b&&new Date(b)<new Date(a))return alert('La hora final no puede ser anterior al inicio');chosen.started=a?new Date(a).toISOString():null;chosen.finished=b?new Date(b).toISOString():null;chosen.status=chosen.finished?'Finalizada':chosen.started?'En curso':'Pendiente';chosen.automaticEnd=false;chosen.automaticEndReason='';persist();list();openDetail(chosen.id)});
+$('saveHours').addEventListener('click',()=>{if(!chosen)return;let a=$('editStart').value,b=$('editEnd').value;if(b&&!a)return alert('Introduce primero el inicio');if(a&&b&&new Date(b)<new Date(a))return alert('La hora final no puede ser anterior al inicio');chosen.started=a?new Date(a).toISOString():null;chosen.finished=b?new Date(b).toISOString():null;chosen.status=chosen.finished?'Finalizada':chosen.started?'En curso':'Pendiente';chosen.automaticEnd=false;chosen.automaticEndReason='';chosen.manualTimeEdited=true;persist();list();openDetail(chosen.id)});
+
+// ESTADÍSTICAS: cada carga corresponde a un único preparador.
+// Nunca se reparten kg, referencias ni minutos entre distintos operarios.
+const toLocalDate=d=>{
+ const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+ return y+'-'+m+'-'+day;
+};
+const hoursText=min=>{const m=Math.max(0,Math.round(min));return Math.floor(m/60)+' h '+String(m%60).padStart(2,'0')+' min'};
+const statsNumber=n=>Number(n||0).toLocaleString('es-ES',{maximumFractionDigits:2});
+let currentStatsRows=[];
+function statsPeriodBounds(){
+ const kind=$('statsPeriod').value,now=new Date(),today=toLocalDate(now);
+ if(kind==='all')return {from:'',to:''};
+ if(kind==='month')return {from:today.slice(0,7)+'-01',to:today};
+ if(kind==='week'){const since=new Date(now.getFullYear(),now.getMonth(),now.getDate()-6);return {from:toLocalDate(since),to:today}}
+ return {from:$('statsFrom').value,to:$('statsTo').value};
+}
+function collectStatsRows(){
+ const {from,to}=statsPeriodBounds(),op=$('statsOperator').value;
+ const rows=[];
+ for(const r of loads){
+  if(!r.operator||!r.started||!r.finished)continue;
+  const start=new Date(r.started),end=new Date(r.finished);
+  if(!Number.isFinite(start.getTime())||!Number.isFinite(end.getTime())||end<=start)continue;
+  const finishedDay=toLocalDate(end);
+  if((from&&finishedDay<from)||(to&&finishedDay>to)||(op&&r.operator!==op))continue;
+  const hours=(end-start)/3600000;
+  const refs=Number(r.refs);
+  const referenceCount=Number.isFinite(refs)&&refs>=0?refs:0;
+  const kg=Number(r.weight);
+  const weightEligible=!r.mixedWarehouse&&r.weight!=null&&Number.isFinite(kg)&&kg>=0;
+  rows.push({
+   id:r.id,operator:r.operator,start,end,day:finishedDay,hours,refs:referenceCount,
+   refsKnown:r.refs!=null,kg:weightEligible?kg:null,mixed:!!r.mixedWarehouse,
+   verified:isVerified(r),automatic:!!r.automaticEnd,manual:!!r.manualTimeEdited
+  });
+ }
+ rows.sort((a,b)=>b.end-a.end);
+ return rows;
+}
+function statsSummary(rows){
+ const by=new Map();
+ for(const row of rows){
+  const key=row.operator;
+  if(!by.has(key))by.set(key,{name:key,count:0,hours:0,refs:0,refsHours:0,kg:0,kgHours:0,kgLoads:0,mixed:0,issues:0,automatic:0,manual:0});
+  const a=by.get(key);a.count++;a.hours+=row.hours;
+  if(row.refsKnown){a.refs+=row.refs;a.refsHours+=row.hours}
+  if(row.kg!==null){a.kg+=row.kg;a.kgHours+=row.hours;a.kgLoads++}
+  if(row.mixed)a.mixed++;
+  if(!row.verified)a.issues++;
+  if(row.automatic)a.automatic++;
+  if(row.manual)a.manual++;
+ }
+ return [...by.values()].sort((a,b)=>a.name.localeCompare(b.name,'es'));
+}
+function renderStats(){
+ const previous=$('statsOperator').value;
+ const operatorNames=[...new Set([...operators,...loads.map(x=>x.operator)].filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+ $('statsOperator').innerHTML='<option value="">Todos los operarios</option>'+operatorNames.map(name=>'<option value="'+html(name)+'">'+html(name)+'</option>').join('');
+ $('statsOperator').value=operatorNames.includes(previous)?previous:'';
+ const custom=$('statsPeriod').value==='custom';
+ $('statsFromWrap').hidden=!custom;
+ $('statsToWrap').hidden=!custom;
+ const rows=collectStatsRows(),groups=statsSummary(rows),totalHours=rows.reduce((t,r)=>t+r.hours,0);
+ const refsRows=rows.filter(r=>r.refsKnown),refs=refsRows.reduce((t,r)=>t+r.refs,0),refsHours=refsRows.reduce((t,r)=>t+r.hours,0);
+ const kgRows=rows.filter(r=>r.kg!==null),kg=kgRows.reduce((t,r)=>t+r.kg,0),kgHours=kgRows.reduce((t,r)=>t+r.hours,0);
+ currentStatsRows=rows;
+ const blocks=[
+  [rows.length,'Cargas finalizadas'],[hoursText(totalHours*60),'Horas registradas'],
+  [refsHours?statsNumber(refs/refsHours):'—','Referencias/hora'],
+  [kgHours?statsNumber(kg/kgHours):'—','Kg/hora (no mixtas)']
+ ];
+ $('statsMetrics').innerHTML=blocks.map(([v,label])=>'<div class="stats-metric"><strong>'+html(v)+'</strong><small>'+html(label)+'</small></div>').join('');
+ const pending=loads.filter(r=>!r.finished||!r.started).length;
+ const mixedCount=rows.filter(r=>r.mixed).length;
+ const incidentCount=rows.filter(r=>!r.verified).length;
+ const autos=rows.filter(r=>r.automatic).length;
+ const manual=rows.filter(r=>r.manual).length;
+ $('statsNote').textContent='Se incluyen únicamente cargas con preparador, inicio y fin válidos, según su fecha de finalización. '+pending+' cargas sin horario completo fuera del informe. '+mixedCount+' cargas mixtas excluidas del cálculo de kg/h. '+incidentCount+' cargas con incidencias de lectura. '+autos+' finalizaciones automáticas y '+manual+' correcciones manuales registradas desde esta versión. Los kg/h se calculan solo sobre el tiempo de las cargas con peso atribuible.';
+ if(!groups.length)$('statsByOperator').innerHTML='<div class="stats-empty">Todavía no hay cargas finalizadas con tiempos válidos en el periodo seleccionado.</div>';
+ else $('statsByOperator').innerHTML='<table class="stats-table"><thead><tr><th>Preparador</th><th>Cargas</th><th>Tiempo</th><th>Ref.</th><th>Ref./h</th><th>Kg</th><th>Kg/h</th><th>Mixtas</th><th>Incid.</th></tr></thead><tbody>'+groups.map(g=>'<tr><td>'+html(g.name)+'</td><td>'+g.count+'</td><td>'+hoursText(g.hours*60)+'</td><td>'+statsNumber(g.refs)+'</td><td>'+(g.refsHours?statsNumber(g.refs/g.refsHours):'—')+'</td><td>'+(g.kgLoads?statsNumber(g.kg):'—')+'</td><td>'+(g.kgHours?statsNumber(g.kg/g.kgHours):'—')+'</td><td>'+g.mixed+'</td><td>'+g.issues+'</td></tr>').join('')+'</tbody></table>';
+ if(!rows.length)$('statsDetail').innerHTML='<div class="stats-empty">Sin registros para este filtro.</div>';
+ else $('statsDetail').innerHTML='<table class="stats-table"><thead><tr><th>Fecha fin</th><th>Preparador</th><th>Carga</th><th>Duración</th><th>Ref.</th><th>Kg</th><th>Comprobación</th><th>Fin</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+html(r.end.toLocaleDateString('es-ES'))+'</td><td>'+html(r.operator)+'</td><td>'+html(r.id)+'</td><td>'+hoursText(r.hours*60)+'</td><td>'+(r.refsKnown?statsNumber(r.refs):'—')+'</td><td>'+(r.mixed?'Global*':r.kg===null?'—':statsNumber(r.kg))+'</td><td>'+(r.verified?'Verificada':'Incidencia')+'</td><td>'+(r.automatic?'Automático':r.manual?'Corregido':'Registrado')+'</td></tr>').join('')+'</tbody></table>';
+}
+$('openStats').addEventListener('click',()=>{renderStats();$('statsScreen').classList.add('show');$('statsScreen').scrollTop=0});
+$('closeStats').addEventListener('click',()=>{$('statsScreen').classList.remove('show');document.body.classList.remove('stats-print')});
+for(const name of ['statsPeriod','statsOperator','statsFrom','statsTo'])$(name).addEventListener('change',renderStats);
+$('statsPrint').addEventListener('click',()=>{
+ renderStats();
+ document.body.classList.add('stats-print');
+ window.print();
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('stats-print'));
+$('statsExport').addEventListener('click',()=>{
+ renderStats();
+ if(!currentStatsRows.length)return alert('No hay cargas finalizadas que exportar con estos filtros.');
+ const safe=v=>{const text=String(v??'');const escaped=/^[=+\-@\t\r]/.test(text)?"'"+text:text;return '"'+escaped.replace(/"/g,'""')+'"'};
+ const rows=[['Fecha fin','Operario','Nº carga','Inicio','Fin','Minutos','Referencias','Peso kg atribuible','Peso mixto global','Verificación','Finalización automática','Horario corregido'],...currentStatsRows.map(r=>[r.end.toLocaleDateString('es-ES'),r.operator,r.id,r.start.toLocaleString('es-ES'),r.end.toLocaleString('es-ES'),Math.round(r.hours*60),r.refsKnown?r.refs:'',r.kg===null?'':r.kg.toFixed(2).replace('.',','),r.mixed?'Sí':'No',r.verified?'Verificada':'Con incidencias',r.automatic?'Sí':'No',r.manual?'Sí':'No'])];
+ const csv='\ufeff'+rows.map(row=>row.map(safe).join(';')).join('\r\n');
+ const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+ const a=document.createElement('a');a.href=url;a.download='Rendimiento_preparadores_'+toLocalDate(new Date())+'.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+
 const reportOrder=(a,b)=>{
  const rank=k=>k==='SIN UBICACIÓN'?200:k==='FRÍO'?199:((k||'').charCodeAt(0)||100);
  return rank(a)-rank(b);
@@ -378,7 +535,7 @@ $('clear').addEventListener('click',async()=>{
   loads=[];selectedIds.clear();persist();list();notify('Cargas, PDF originales y registros eliminados de este dispositivo.','warn');
  }catch(e){notify('No se han eliminado las cargas: '+(e.message||e),'warn')}
 });
-$('backup').addEventListener('click',()=>{const content={format:'control-cargas-backup',version:'0.5.11',created:new Date().toISOString(),loads,operators};const blob=new Blob([JSON.stringify(content,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Control_Cargas_Copia_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+$('backup').addEventListener('click',()=>{const content={format:'control-cargas-backup',version:'0.5.12',created:new Date().toISOString(),loads,operators};const blob=new Blob([JSON.stringify(content,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Control_Cargas_Copia_'+new Date().toISOString().slice(0,10)+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)});
 $('restoreInput').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const parsed=JSON.parse(await file.text());if(parsed.format!=='control-cargas-backup'||!Array.isArray(parsed.loads)||!Array.isArray(parsed.operators))throw new Error('Archivo de copia no compatible');if(!confirm('¿Restaurar la copia? Reemplazará las cargas guardadas en este iPhone.'))return;loads=parsed.loads;operators=parsed.operators;selectedIds.clear();persist();list();notify('Copia restaurada correctamente.','ok')}catch(err){notify('No se ha restaurado la copia: '+err.message,'warn')}finally{e.target.value=''}});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{});
 list();
