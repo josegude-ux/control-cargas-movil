@@ -1,4 +1,4 @@
 {
-  "version": "0.5.19",
-  "notes": "Estadísticas: PDF A4 apaisado con tablas legibles, tarjetas resumen y detalle en página separada. Sin cambios en la vista de la aplicación ni sus datos."
+  "version": "0.5.20",
+  "notes": "Corregido fallo CONT al generar PDF de Estadísticas. Se mantienen las tablas A4 horizontales y los datos locales."
 }
