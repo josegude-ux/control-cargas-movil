@@ -1,4 +1,4 @@
 {
-  "version": "0.5.8",
-  "notes": "Corrige cantidades con decimales (110.000 = 110), lee solo Total unidades de MERCANCÍA e ignora Devoluciones previstas. Las líneas con cantidad cero no bloquean la validación. Mantiene el filtro COR_01_COR, la impresión original, los operarios y los horarios."
+  "version": "0.5.9",
+  "notes": "Una referencia con Total unidades vacío se interpreta como 0 sin bloquear la verificación, se mantiene en el número de referencias y se ignoran las Devoluciones previstas. Reimportar el PDF para recalcular."
 }
