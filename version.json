@@ -1,4 +1,4 @@
 {
-  "version": "0.5.10",
-  "notes": "Nuevo indicador de verificadas/con incidencias, contador y filtro de incidencias. Las cargas no se imprimen durante la importación; si hay alguna sin verificar, la impresión en bloque se bloquea por completo. Filtra Verificadas y Marca visibles para imprimir solo las correctas. Mantiene datos locales y registros de operarios."
+  "version": "0.5.11",
+  "notes": "Permite imprimir cargas con incidencias, individualmente o en bloque, sin frenar las verificadas. Cada hoja original de MERCANCÍA se acompaña de resumen PROVISIONAL y advertencia con errores. Se pide confirmación para imprimir un lote con incidencias; no se incluye control de envases. Si falta un PDF original aparece una hoja de aviso para reimportarlo. Mantiene datos de operarios y horarios."
 }
