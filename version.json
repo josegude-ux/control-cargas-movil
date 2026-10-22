@@ -1,4 +1,4 @@
 {
-  "version": "0.5.5",
-  "notes": "Seleccion de cargas mediante casillas e impresion conjunta de mercancia original y resumen por carga."
+ "version":"0.5.6",
+ "notes":"Nuevo botón Seleccionar todas para impresión múltiple, además de Marcar visibles y Desmarcar."
 }
