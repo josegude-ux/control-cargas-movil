@@ -1,4 +1,4 @@
 {
-  "version": "0.5.9",
-  "notes": "Una referencia con Total unidades vacío se interpreta como 0 sin bloquear la verificación, se mantiene en el número de referencias y se ignoran las Devoluciones previstas. Reimportar el PDF para recalcular."
+  "version": "0.5.10",
+  "notes": "Nuevo indicador de verificadas/con incidencias, contador y filtro de incidencias. Las cargas no se imprimen durante la importación; si hay alguna sin verificar, la impresión en bloque se bloquea por completo. Filtra Verificadas y Marca visibles para imprimir solo las correctas. Mantiene datos locales y registros de operarios."
 }
