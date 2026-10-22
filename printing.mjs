@@ -45,9 +45,23 @@ async function recortarMercancia(original){
  const doc=await pdfjs.getDocument({data:new Uint8Array(await original.arrayBuffer())}).promise;
  const images=[];let found=false;
  try {
+  // Localizar PRIMERO los bloques de almacén en todas las páginas: COR_01 puede
+  // aparecer después de otro bloque y el número LP se repite entre almacenes.
+  const sourcePages=[];let hasWarehouse=false,hasCoruna=false;
   for(let pageNumber=1;pageNumber<=doc.numPages;pageNumber++){
    const page=await doc.getPage(pageNumber);
    const content=await page.getTextContent();
+   const text=content.items.map(i=>i.str||'').join(' ');
+   const match=text.match(/Almac[eé]n\s*:\s*(COR[\s_-]*0?\d{1,2}[\s_-]*[A-Z]{2,})/i);
+   const warehouse=match?match[1].toUpperCase().replace(/[\s-]+/g,'_').replace(/^COR_1_/,'COR_01_').replace(/^COR_2_/,'COR_02_'):null;
+   if(warehouse){hasWarehouse=true;if(warehouse==='COR_01_COR')hasCoruna=true;}
+   sourcePages.push({page,content,warehouse});
+  }
+  if(hasWarehouse&&!hasCoruna)throw new Error('El PDF contiene almacenes, pero no se ha encontrado COR_01_COR');
+  let currentWarehouse=null;
+  for(const {page,content,warehouse} of sourcePages){
+   if(warehouse)currentWarehouse=warehouse;
+   if(hasWarehouse&&currentWarehouse!=='COR_01_COR')continue;
    const lines=new Map();
    for(const item of content.items){
     if(typeof item.str!=='string'||!item.transform)continue;
