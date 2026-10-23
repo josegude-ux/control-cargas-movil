@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#142e48"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Control Cargas">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg"><link rel="apple-touch-icon" href="./icon-180.png">
-<title>Control de Cargas Móvil v0.5.22</title>
+<title>Control de Cargas Móvil v0.5.24</title>
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#182e44;background:#f2f5f9;font-size:15px;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-width:310px}button,input,select{font:inherit}button{cursor:pointer}.head{background:linear-gradient(135deg,#203d5b,#102840);color:#fff;padding:calc(24px + env(safe-area-inset-top,0px)) 20px 25px}.head .eyebrow{font-size:11px;opacity:.8;letter-spacing:1.4px}.head h1{font-size:25px;margin:9px 0 0;letter-spacing:-.6px}.wrap{max-width:850px;padding:18px;margin:auto}h2{font-size:22px;margin:0 0 6px;letter-spacing:-.5px}h3{font-size:17px;margin:0 0 10px}h4{font-size:14px;margin:16px 0 9px}.muted{color:#6a7c90;font-size:13px;line-height:1.5}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;background:#227ab8;color:white;border-radius:12px;padding:13px 17px;font-weight:750;min-height:46px;text-decoration:none;white-space:nowrap}.btn.light{background:#e8f0f7;color:#1a4e73}.btn.ghost{background:white;color:#22567a;border:1px solid #d8e3ed}.btn:disabled{opacity:.48;cursor:default}.toolbar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:13px}.notice{padding:13px;border-radius:13px;background:#e5f1fb;color:#174b71;font-size:13px;line-height:1.5;margin-top:15px;white-space:pre-wrap}.notice.warn{background:#fff2df;color:#74471c}.notice.ok{background:#e5f4ed;color:#215d3d}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}.metric{background:white;border-radius:15px;padding:17px 8px;text-align:center;box-shadow:0 2px 8px #12324c08}.metric strong{display:block;font-size:23px}.metric span{color:#6e8294;font-size:11px}.panel{background:white;border-radius:18px;padding:17px;box-shadow:0 3px 13px #12324c0d;margin-top:15px}.line{display:flex;align-items:center;justify-content:space-between;gap:9px}.list-btn{display:block;text-align:left;width:100%;background:#fff;color:inherit;border:1px solid #dfe7ef;border-radius:14px;padding:15px 14px;margin-top:10px}.list-btn:active{background:#f1f6fb}.list-btn .name{font-size:17px;font-weight:750}.list-btn .kg{font-size:14px;font-weight:750;white-space:nowrap}.mini{font-size:13px;color:#687e90;margin:10px 0}.footrow{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.tag{border-radius:8px;padding:6px 9px;font-size:12px;white-space:nowrap;background:#f5ead5;color:#805a1b}.tag.running{background:#e0efff;color:#195a9a}.tag.done{background:#def3e7;color:#206a46}
 .validation-overview{margin:8px 0 2px;font-size:13px;color:#33506a;line-height:1.6}
@@ -131,17 +131,17 @@
 </style>
 </head>
 <body>
-<header class="head"><div class="eyebrow">APLICACIÓN INDEPENDIENTE · V0.5.22</div><h1>Control de Cargas Móvil</h1></header>
+<header class="head"><div class="eyebrow">APLICACIÓN INDEPENDIENTE · V0.5.24</div><h1>Control de Cargas Móvil</h1></header>
 <main class="wrap">
 <div class="toolbar"><div><h2>Preparación de cargas</h2><div class="muted">Ordenadas por peso · Datos locales de este dispositivo</div></div><div class="stats-toolbar"><button class="btn light" type="button" id="openStats">▥ Estadísticas</button><label class="btn" for="pdfs">＋ Importar PDF</label><input id="pdfs" type="file" accept="application/pdf,.pdf" multiple class="hidden"></div></div>
-<section class="panel" id="cloudAccess" style="margin-bottom:14px"><div class="line" style="align-items:center;flex-wrap:wrap"><div><h3 style="margin:0 0 5px">Conexión compartida</h3><div class="muted" id="cloudStatus">Sin conectar · Los registros locales permanecen intactos.</div></div><div class="actions"><button class="btn light" type="button" id="cloudSync" disabled>⟳ Sincronizar ahora</button><button class="btn ghost" type="button" id="cloudLogout" hidden>Cerrar sesión</button></div></div><form id="cloudLogin" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><input type="email" id="cloudEmail" placeholder="Correo electrónico" autocomplete="username" required style="flex:1;min-width:180px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><input type="password" id="cloudPassword" placeholder="Contraseña" autocomplete="current-password" required style="flex:1;min-width:160px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Entrar</button></form><div style="margin-top:10px"><button class="btn light" type="button" id="cloudRecover">¿No tienes contraseña? Recuperarla</button></div><form id="cloudNewPasswordForm" hidden style="margin-top:12px"><label for="cloudNewPassword">Nueva contraseña (mínimo 8 caracteres)</label><div class="actions" style="margin-top:6px"><input id="cloudNewPassword" type="password" minlength="8" autocomplete="new-password" placeholder="Nueva contraseña" style="padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Guardar contraseña</button></div></form><div class="muted" style="margin-top:7px">Primero comprobaremos el acceso. Ninguna carga ni documento se enviará o sustituirá todavía.</div></section>
-<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.23</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
+<section class="panel" id="cloudAccess" style="margin-bottom:14px"><div class="line" style="align-items:center;flex-wrap:wrap"><div><h3 style="margin:0 0 5px">Conexión compartida</h3><div class="muted" id="cloudStatus">Sin conectar · Los registros locales permanecen intactos.</div></div><div class="actions"><button class="btn light" type="button" id="cloudSync" disabled>↑ Sincronizar 1 carga</button><button class="btn light" type="button" id="cloudReceive" disabled>↓ Recibir prueba</button><button class="btn ghost" type="button" id="cloudLogout" hidden>Cerrar sesión</button></div></div><form id="cloudLogin" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><input type="email" id="cloudEmail" placeholder="Correo electrónico" autocomplete="username" required style="flex:1;min-width:180px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><input type="password" id="cloudPassword" placeholder="Contraseña" autocomplete="current-password" required style="flex:1;min-width:160px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Entrar</button></form><div style="margin-top:10px"><button class="btn light" type="button" id="cloudRecover">¿No tienes contraseña? Recuperarla</button></div><form id="cloudNewPasswordForm" hidden style="margin-top:12px"><label for="cloudNewPassword">Nueva contraseña (mínimo 8 caracteres)</label><div class="actions" style="margin-top:6px"><input id="cloudNewPassword" type="password" minlength="8" autocomplete="new-password" placeholder="Nueva contraseña" style="padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Guardar contraseña</button></div></form><div class="muted" style="margin-top:7px">Prueba manual y limitada a una carga: márcala en el listado y pulsa «Sincronizar 1 carga». «Recibir prueba» recupera una carga que todavía no exista en este dispositivo. No se sobreescribe ninguna carga y los PDF originales permanecen locales.</div></section>
+<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.24</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
 <div id="feedback" class="notice" role="status" aria-live="polite">Puedes seleccionar varias hojas de carga desde Archivos o OneDrive.</div>
 <div class="cards"><div class="metric"><strong id="nLoads">0</strong><span>Cargas</span></div><div class="metric"><strong id="nRefs">0</strong><span>Referencias</span></div><div class="metric"><strong id="nWeight">0</strong><span>Kg totales</span></div></div>
 <div id="validationOverview" class="validation-overview" aria-live="polite"></div>
 <div class="filters" id="filters"><button class="filter active" data-filter="Todas">Todas</button><button class="filter" data-filter="Verificadas">✓ Verificadas</button><button class="filter" data-filter="Con incidencias">⚠ Con incidencias</button><button class="filter" data-filter="Pendiente">Pendientes</button><button class="filter" data-filter="En curso">En curso</button><button class="filter" data-filter="Finalizada">Finalizadas</button></div>
 <section class="panel"><div class="line"><div><h3>Cargas importadas</h3><div class="muted">Pulsa una carga para registrar su preparación.</div></div></div><div class="batch-toolbar"><button class="btn light" id="selectAll" type="button">☑ Seleccionar todas</button><button class="btn light" id="selectVisible" type="button">Marcar visibles</button><button class="btn ghost" id="clearSelection" type="button">Desmarcar</button><button class="btn" id="printSelected" type="button" disabled>▤ Imprimir seleccionadas (0)</button></div><div id="loadList"></div><div class="bottom"><button class="btn light" id="backup">Guardar copia</button><label class="btn ghost" for="restoreInput">Restaurar copia</label><input id="restoreInput" type="file" accept="application/json,.json" class="hidden"><button class="btn ghost" id="clear">Eliminar cargas</button></div></section>
-<p class="smallprint">Originales PDF guardados solo en este iPhone · Copias JSON sin PDF · Datos locales, sin envío a servidor</p>
+<p class="smallprint">Originales PDF guardados solo en este dispositivo · Copias JSON sin PDF · Solo se envía a Supabase una carga cuando confirmas la prueba</p>
 </main>
 
 <div class="screen" id="statsScreen" aria-label="Estadísticas de preparadores" style="z-index:55">
@@ -179,7 +179,7 @@
 import {parseDocumentPages,summarize} from './core.mjs';
 import {guardarOriginal,prepararMercancia,limpiarVista,borrarTodosOriginales,leerOriginal} from './printing.mjs';
 const $=id=>document.getElementById(id);
-const APP_VERSION='0.5.23';
+const APP_VERSION='0.5.24';
 const UPDATE_ENDPOINT='./version.json';
 const compareVersions=(v1,v2)=>{
  const a=String(v1).split('.').map(x=>Number(x)||0),b=String(v2).split('.').map(x=>Number(x)||0);
@@ -218,7 +218,7 @@ $('updateApp').addEventListener('click',async()=>{
 });
 const SUPABASE_URL='https://oevetnszmfxeukcncwji.supabase.co';
 const SUPABASE_PUBLIC_KEY='sb_publishable_HH9O16zA-hT7ElScoYOSUQ_u-tcD-ei';
-let cloudClient=null,cloudUser=null,cloudReady=false,cloudBusy=false;
+let cloudClient=null,cloudUser=null,cloudReady=false,cloudBusy=false,cloudCanPilot=false;
 const cloudStatus=message=>{$('cloudStatus').textContent=message};
 let cloudRecoveryMode=false;
 const cloudControls=()=>{
@@ -227,14 +227,15 @@ const cloudControls=()=>{
  $('cloudNewPasswordForm').hidden=!cloudRecoveryMode;
  $('cloudRecover').hidden=!!cloudUser||cloudRecoveryMode;
  $('cloudLogout').hidden=!cloudUser;
- $('cloudSync').disabled=!cloudReady||cloudBusy;
+ $('cloudSync').disabled=!cloudReady||!cloudCanPilot||cloudBusy;
+ $('cloudReceive').disabled=!cloudReady||!cloudCanPilot||cloudBusy;
 };
 async function verifyCloudAccess(user){
  const {data,error}=await cloudClient.from('usuarios_app').select('rol,activo,nombre').eq('id',user.id).maybeSingle();
  if(error)throw error;
  if(!data?.activo)throw new Error('Usuario no autorizado. Consulta con administración.');
- cloudUser=user;cloudReady=true;
- cloudStatus('Conectado: '+(data.nombre||user.email)+' · '+(data.rol==='administrador'?'Administrador':'Operario')+' · Pendiente de activar intercambio de cargas.');
+ cloudUser=user;cloudReady=true;cloudCanPilot=data.rol==='administrador';
+ cloudStatus('Conectado: '+(data.nombre||user.email)+' · '+(cloudCanPilot?'Administrador · Prueba de sincronización de 1 carga disponible.':'Operario · Sincronización pendiente de habilitar por administración.'));
  cloudControls();
 }
 async function setupCloud(){
@@ -247,7 +248,7 @@ async function setupCloud(){
   else cloudStatus('Sin conectar · Inicia sesión. Los datos locales no cambian.');
   cloudClient.auth.onAuthStateChange((event,session)=>{
    if(event==='PASSWORD_RECOVERY'){cloudRecoveryMode=true;cloudStatus('Enlace verificado. Establece tu nueva contraseña.');cloudControls();}
-   if(!session&&cloudUser){cloudUser=null;cloudReady=false;cloudStatus('Sesión cerrada. Los datos locales siguen disponibles.');cloudControls()}
+   if(!session&&cloudUser){cloudUser=null;cloudReady=false;cloudCanPilot=false;cloudStatus('Sesión cerrada. Los datos locales siguen disponibles.');cloudControls()}
   });
  }catch(err){cloudStatus('Conexión no disponible: '+(err.message||err)+'. Puedes seguir sin conexión.')}
  cloudControls();
@@ -284,17 +285,48 @@ $('cloudLogin').addEventListener('submit',async e=>{
   if(error)throw error;
   await verifyCloudAccess(data.user);
   $('cloudPassword').value='';
- }catch(err){cloudUser=null;cloudReady=false;cloudStatus('No se ha podido iniciar sesión: '+(err.message||err))}
+ }catch(err){cloudUser=null;cloudReady=false;cloudCanPilot=false;cloudStatus('No se ha podido iniciar sesión: '+(err.message||err))}
  finally{cloudBusy=false;cloudControls()}
 });
 $('cloudLogout').addEventListener('click',async()=>{
  if(!cloudClient)return;
  cloudBusy=true;cloudControls();
  try{await cloudClient.auth.signOut()}catch{}
- cloudUser=null;cloudReady=false;cloudBusy=false;cloudStatus('Sesión cerrada. Cargas locales intactas.');cloudControls();
+ cloudUser=null;cloudReady=false;cloudCanPilot=false;cloudBusy=false;cloudStatus('Sesión cerrada. Cargas locales intactas.');cloudControls();
 });
-$('cloudSync').addEventListener('click',()=>{
- if(cloudReady)cloudStatus('Acceso comprobado. El intercambio de cargas y PDF aún no está activado para proteger los registros existentes.');
+const cloudNotify=(message,type='')=>{cloudStatus(message);notify(message,type)};
+$('cloudSync').addEventListener('click',async()=>{
+ if(!cloudReady||!cloudCanPilot||cloudBusy)return;
+ if(selectedIds.size!==1)return cloudNotify('Para la prueba marca exactamente UNA carga en el listado, usando su casilla. No se enviarán las otras.','warn');
+ const id=[...selectedIds][0],carga=loads.find(r=>r.id===id);
+ if(!carga)return cloudNotify('La carga seleccionada ya no existe en este dispositivo.','warn');
+ if(!confirm('PRUEBA DE SINCRONIZACIÓN\n\n¿Enviar solamente la carga '+id+' a Supabase?\n\nNo se subirá su PDF original ni se borrará ningún registro del iPhone.'))return;
+ cloudBusy=true;cloudControls();cloudStatus('Enviando únicamente la carga '+id+'…');
+ try{
+  const {subirCargaPrueba}=await import('./sync-cargas.mjs');
+  const resultado=await subirCargaPrueba(cloudClient,cloudUser,carga);
+  if(resultado.estado==='ya_existe')cloudNotify('La carga '+id+' ya existe en Supabase. No se ha sobrescrito: revisaremos los cambios antes de sincronizarla.','warn');
+  else cloudNotify('Prueba correcta: carga '+id+' guardada en Supabase. Las demás cargas y todos los PDF siguen locales.','ok');
+ }catch(err){cloudNotify('No se pudo enviar la prueba: '+(err.message||err)+'. Las cargas locales siguen intactas.','warn')}
+ finally{cloudBusy=false;cloudControls()}
+});
+$('cloudReceive').addEventListener('click',async()=>{
+ if(!cloudReady||!cloudCanPilot||cloudBusy)return;
+ cloudBusy=true;cloudControls();cloudStatus('Buscando una carga de prueba nueva en Supabase…');
+ try{
+  const {recibirCargaPrueba}=await import('./sync-cargas.mjs');
+  const resultado=await recibirCargaPrueba(cloudClient,new Set(loads.map(r=>String(r.id))));
+  if(resultado.estado!=='recibida'){cloudNotify(resultado.estado==='sin_cargas'?'Supabase todavía no tiene cargas de prueba.':'No hay cargas nuevas para este dispositivo. No se ha modificado nada.');return}
+  if(loads.some(r=>String(r.id)===resultado.clave)){cloudNotify('Esta carga ya existe localmente: no se sobrescribirá.','warn');return}
+  if(!confirm('¿Recibir la carga '+resultado.clave+' en este dispositivo?\n\nNo se reemplazarán cargas existentes. El PDF original no se transfiere.')){cloudNotify('Recepción cancelada. Los registros siguen intactos.');return}
+  // Comprobación repetida antes de guardar: nunca sustituir una carga local.
+  if(loads.some(r=>String(r.id)===resultado.clave))return cloudNotify('Se ha detectado una carga local con ese identificador. No se sobrescribe.','warn');
+  loads.push(resultado.carga);
+  if(!persist()){loads=loads.filter(r=>r!==resultado.carga);throw new Error('No hay espacio local suficiente para guardar esta carga.')}
+  list();
+  cloudNotify('Carga '+resultado.clave+' recibida sin sobrescribir datos. El PDF original debe importarse por separado si se necesita imprimir.','ok');
+ }catch(err){cloudNotify('No se pudo recibir la prueba: '+(err.message||err)+'. No se han borrado cargas locales.','warn')}
+ finally{cloudBusy=false;cloudControls()}
 });
 cloudControls();
 setupCloud();
