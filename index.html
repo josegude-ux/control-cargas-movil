@@ -134,8 +134,8 @@
 <header class="head"><div class="eyebrow">APLICACIÓN INDEPENDIENTE · V0.5.22</div><h1>Control de Cargas Móvil</h1></header>
 <main class="wrap">
 <div class="toolbar"><div><h2>Preparación de cargas</h2><div class="muted">Ordenadas por peso · Datos locales de este dispositivo</div></div><div class="stats-toolbar"><button class="btn light" type="button" id="openStats">▥ Estadísticas</button><label class="btn" for="pdfs">＋ Importar PDF</label><input id="pdfs" type="file" accept="application/pdf,.pdf" multiple class="hidden"></div></div>
-<section class="panel" id="cloudAccess" style="margin-bottom:14px"><div class="line" style="align-items:center;flex-wrap:wrap"><div><h3 style="margin:0 0 5px">Conexión compartida</h3><div class="muted" id="cloudStatus">Sin conectar · Los registros locales permanecen intactos.</div></div><div class="actions"><button class="btn light" type="button" id="cloudSync" disabled>⟳ Sincronizar ahora</button><button class="btn ghost" type="button" id="cloudLogout" hidden>Cerrar sesión</button></div></div><form id="cloudLogin" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><input type="email" id="cloudEmail" placeholder="Correo electrónico" autocomplete="username" required style="flex:1;min-width:180px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><input type="password" id="cloudPassword" placeholder="Contraseña" autocomplete="current-password" required style="flex:1;min-width:160px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Entrar</button></form><div class="muted" style="margin-top:7px">Primero comprobaremos el acceso. Ninguna carga ni documento se enviará o sustituirá todavía.</div></section>
-<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.22</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
+<section class="panel" id="cloudAccess" style="margin-bottom:14px"><div class="line" style="align-items:center;flex-wrap:wrap"><div><h3 style="margin:0 0 5px">Conexión compartida</h3><div class="muted" id="cloudStatus">Sin conectar · Los registros locales permanecen intactos.</div></div><div class="actions"><button class="btn light" type="button" id="cloudSync" disabled>⟳ Sincronizar ahora</button><button class="btn ghost" type="button" id="cloudLogout" hidden>Cerrar sesión</button></div></div><form id="cloudLogin" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><input type="email" id="cloudEmail" placeholder="Correo electrónico" autocomplete="username" required style="flex:1;min-width:180px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><input type="password" id="cloudPassword" placeholder="Contraseña" autocomplete="current-password" required style="flex:1;min-width:160px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Entrar</button></form><div style="margin-top:10px"><button class="btn light" type="button" id="cloudRecover">¿No tienes contraseña? Recuperarla</button></div><form id="cloudNewPasswordForm" hidden style="margin-top:12px"><label for="cloudNewPassword">Nueva contraseña (mínimo 8 caracteres)</label><div class="actions" style="margin-top:6px"><input id="cloudNewPassword" type="password" minlength="8" autocomplete="new-password" placeholder="Nueva contraseña" style="padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Guardar contraseña</button></div></form><div class="muted" style="margin-top:7px">Primero comprobaremos el acceso. Ninguna carga ni documento se enviará o sustituirá todavía.</div></section>
+<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.23</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
 <div id="feedback" class="notice" role="status" aria-live="polite">Puedes seleccionar varias hojas de carga desde Archivos o OneDrive.</div>
 <div class="cards"><div class="metric"><strong id="nLoads">0</strong><span>Cargas</span></div><div class="metric"><strong id="nRefs">0</strong><span>Referencias</span></div><div class="metric"><strong id="nWeight">0</strong><span>Kg totales</span></div></div>
 <div id="validationOverview" class="validation-overview" aria-live="polite"></div>
@@ -179,7 +179,7 @@
 import {parseDocumentPages,summarize} from './core.mjs';
 import {guardarOriginal,prepararMercancia,limpiarVista,borrarTodosOriginales,leerOriginal} from './printing.mjs';
 const $=id=>document.getElementById(id);
-const APP_VERSION='0.5.22';
+const APP_VERSION='0.5.23';
 const UPDATE_ENDPOINT='./version.json';
 const compareVersions=(v1,v2)=>{
  const a=String(v1).split('.').map(x=>Number(x)||0),b=String(v2).split('.').map(x=>Number(x)||0);
@@ -220,9 +220,12 @@ const SUPABASE_URL='https://oevetnszmfxeukcncwji.supabase.co';
 const SUPABASE_PUBLIC_KEY='sb_publishable_HH9O16zA-hT7ElScoYOSUQ_u-tcD-ei';
 let cloudClient=null,cloudUser=null,cloudReady=false,cloudBusy=false;
 const cloudStatus=message=>{$('cloudStatus').textContent=message};
+let cloudRecoveryMode=false;
 const cloudControls=()=>{
- $('cloudLogin').hidden=!!cloudUser;
- $('cloudLogin').style.display=cloudUser?'none':'flex';
+ $('cloudLogin').hidden=!!cloudUser||cloudRecoveryMode;
+ $('cloudLogin').style.display=(cloudUser||cloudRecoveryMode)?'none':'flex';
+ $('cloudNewPasswordForm').hidden=!cloudRecoveryMode;
+ $('cloudRecover').hidden=!!cloudUser||cloudRecoveryMode;
  $('cloudLogout').hidden=!cloudUser;
  $('cloudSync').disabled=!cloudReady||cloudBusy;
 };
@@ -237,17 +240,39 @@ async function verifyCloudAccess(user){
 async function setupCloud(){
  try{
   const {createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-  cloudClient=createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+  cloudClient=createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   const {data:{session},error}=await cloudClient.auth.getSession();
   if(error)throw error;
   if(session?.user){try{await verifyCloudAccess(session.user)}catch(err){cloudStatus(err.message||String(err))}}
   else cloudStatus('Sin conectar · Inicia sesión. Los datos locales no cambian.');
-  cloudClient.auth.onAuthStateChange((_event,session)=>{
+  cloudClient.auth.onAuthStateChange((event,session)=>{
+   if(event==='PASSWORD_RECOVERY'){cloudRecoveryMode=true;cloudStatus('Enlace verificado. Establece tu nueva contraseña.');cloudControls();}
    if(!session&&cloudUser){cloudUser=null;cloudReady=false;cloudStatus('Sesión cerrada. Los datos locales siguen disponibles.');cloudControls()}
   });
  }catch(err){cloudStatus('Conexión no disponible: '+(err.message||err)+'. Puedes seguir sin conexión.')}
  cloudControls();
 }
+$('cloudRecover').addEventListener('click',async()=>{
+ if(!cloudClient)return cloudStatus('Conexión no disponible.');
+ const email=$('cloudEmail').value.trim();
+ if(!email)return cloudStatus('Introduce primero tu correo electrónico.');
+ cloudStatus('Solicitando enlace de recuperación…');
+ const {error}=await cloudClient.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+ cloudStatus(error?(error.message?.toLowerCase().includes('rate limit')?'Límite temporal de correos de Supabase. Espera antes de volver a solicitarlo.':'No se pudo enviar: '+error.message):'Comprueba tu correo y abre el enlace desde este dispositivo.');
+});
+$('cloudNewPasswordForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(!cloudClient)return;
+ const password=$('cloudNewPassword').value;
+ if(password.length<8)return cloudStatus('La contraseña debe tener al menos 8 caracteres.');
+ const {error}=await cloudClient.auth.updateUser({password});
+ if(error)return cloudStatus('No se pudo guardar la contraseña: '+error.message);
+ $('cloudNewPassword').value='';cloudRecoveryMode=false;
+ cloudStatus('Contraseña establecida. Acceso listo.');
+ const {data:{user}}=await cloudClient.auth.getUser();
+ if(user)try{await verifyCloudAccess(user)}catch(err){cloudStatus('Contraseña guardada, pero '+(err.message||err))}
+ cloudControls();
+ history.replaceState(null,'',location.pathname+location.search);
+});
 $('cloudLogin').addEventListener('submit',async e=>{
  e.preventDefault();
  if(!cloudClient)return cloudStatus('Conexión remota no disponible.');
