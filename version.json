@@ -1,4 +1,4 @@
 {
-  "version": "0.5.24",
-  "notes": "Prueba piloto de sincronización manual con Supabase: enviar una carga seleccionada y recibir una nueva sin sobrescribir registros; PDF originales solo locales."
+  "version": "0.5.25",
+  "notes": "Sincronización manual por lotes con revisión y confirmación previa: solo cargas nuevas; detección de diferencias sin sobrescrituras, resumen y fecha de última sincronización. Los PDF originales siguen locales."
 }
