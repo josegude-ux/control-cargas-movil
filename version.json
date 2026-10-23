@@ -1,4 +1,4 @@
 {
-  "version": "0.5.23",
-  "notes": "Recuperación de contraseña y establecimiento desde enlace Supabase; acceso local y cargas preservados."
+  "version": "0.5.24",
+  "notes": "Prueba piloto de sincronización manual con Supabase: enviar una carga seleccionada y recibir una nueva sin sobrescribir registros; PDF originales solo locales."
 }
