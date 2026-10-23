@@ -1,4 +1,4 @@
 {
-  "version": "0.5.22",
-  "notes": "Acceso a Supabase mediante correo y contraseña y comprobación de usuario autorizado. No sincroniza ni altera las cargas y PDF locales."
+  "version": "0.5.23",
+  "notes": "Recuperación de contraseña y establecimiento desde enlace Supabase; acceso local y cargas preservados."
 }
