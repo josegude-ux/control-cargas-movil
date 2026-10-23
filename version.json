@@ -1,4 +1,4 @@
 {
-  "version": "0.5.21",
-  "notes": "Estadísticas: eliminado el apartado Observaciones del PDF generado. Se mantienen el resumen, la comparativa y el detalle de cargas en tablas A4 horizontales. Sin cambiar los datos ni el aspecto de la aplicación."
+  "version": "0.5.22",
+  "notes": "Acceso a Supabase mediante correo y contraseña y comprobación de usuario autorizado. No sincroniza ni altera las cargas y PDF locales."
 }
