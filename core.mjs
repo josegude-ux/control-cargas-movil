@@ -49,6 +49,7 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
  const palletsLarge=palletMatch?Number(palletMatch[1]):null;
  const palletsSmall=palletMatch&&palletMatch[2]!=null?Number(palletMatch[2]):null;
  const date=extract(/Fecha\s*carga\s*:\s*(\d{2}\/\d{2}\/\d{2,4})/i);
+ const route=(extract(/Ruta\s*:\s*(.{1,60}?)(?=\s+(?:Repartidor|Matr[ií]cula|Cami[oó]n|Fecha|Peso|Almac[eé]n|N[º°o.]?\s*(?:copias|visitas))\s*:|$)/i)||'').trim();
  let merchandise=false,declaredTotal=null;
  const products=[],warnings=[];
  for(const page of pages){
@@ -116,7 +117,7 @@ export function parseDocumentPages(pages, fileName='Documento.pdf') {
  if(amountOK===false)warnings.push('Suma detectada: '+sum.toFixed(3)+' / declarada: '+declaredTotal);
  if(declaredTotal===null)warnings.push('No se pudo contrastar el total del PDF');
  const verified=countOK&&amountOK===true&&warnings.length===0;
- return {id,weight,refs,visits,driver,plate,palletsLarge,palletsSmall,date,source:fileName,products,declaredTotal,actualTotal:sum,verified,warnings,warehouse:warehouses.length?'COR_01_COR':null,mixedWarehouse,availableWarehouses:warehouses};
+ return {id,weight,refs,visits,driver,plate,palletsLarge,palletsSmall,date,route,source:fileName,products,declaredTotal,actualTotal:sum,verified,warnings,warehouse:warehouses.length?'COR_01_COR':null,mixedWarehouse,availableWarehouses:warehouses};
 }
 export function summarize(products){
  const units={},aisles={},unlocated=[];

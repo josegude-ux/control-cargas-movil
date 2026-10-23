@@ -1,4 +1,1 @@
-{
-  "version": "0.5.25",
-  "notes": "Sincronización manual por lotes con revisión y confirmación previa: solo cargas nuevas; detección de diferencias sin sobrescrituras, resumen y fecha de última sincronización. Los PDF originales siguen locales."
-}
+{"version":"0.5.26","notes":"PDF duplicados omitidos, revisión de documentos corregidos conservando preparación y resumen diario con filtros."}

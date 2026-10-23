@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#142e48"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Control Cargas">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg"><link rel="apple-touch-icon" href="./icon-180.png">
-<title>Control de Cargas Móvil v0.5.25</title>
+<title>Control de Cargas Móvil v0.5.26</title>
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#182e44;background:#f2f5f9;font-size:15px;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-width:310px}button,input,select{font:inherit}button{cursor:pointer}.head{background:linear-gradient(135deg,#203d5b,#102840);color:#fff;padding:calc(24px + env(safe-area-inset-top,0px)) 20px 25px}.head .eyebrow{font-size:11px;opacity:.8;letter-spacing:1.4px}.head h1{font-size:25px;margin:9px 0 0;letter-spacing:-.6px}.wrap{max-width:850px;padding:18px;margin:auto}h2{font-size:22px;margin:0 0 6px;letter-spacing:-.5px}h3{font-size:17px;margin:0 0 10px}h4{font-size:14px;margin:16px 0 9px}.muted{color:#6a7c90;font-size:13px;line-height:1.5}.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;background:#227ab8;color:white;border-radius:12px;padding:13px 17px;font-weight:750;min-height:46px;text-decoration:none;white-space:nowrap}.btn.light{background:#e8f0f7;color:#1a4e73}.btn.ghost{background:white;color:#22567a;border:1px solid #d8e3ed}.btn:disabled{opacity:.48;cursor:default}.toolbar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:13px}.notice{padding:13px;border-radius:13px;background:#e5f1fb;color:#174b71;font-size:13px;line-height:1.5;margin-top:15px;white-space:pre-wrap}.notice.warn{background:#fff2df;color:#74471c}.notice.ok{background:#e5f4ed;color:#215d3d}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}.metric{background:white;border-radius:15px;padding:17px 8px;text-align:center;box-shadow:0 2px 8px #12324c08}.metric strong{display:block;font-size:23px}.metric span{color:#6e8294;font-size:11px}.panel{background:white;border-radius:18px;padding:17px;box-shadow:0 3px 13px #12324c0d;margin-top:15px}.line{display:flex;align-items:center;justify-content:space-between;gap:9px}.list-btn{display:block;text-align:left;width:100%;background:#fff;color:inherit;border:1px solid #dfe7ef;border-radius:14px;padding:15px 14px;margin-top:10px}.list-btn:active{background:#f1f6fb}.list-btn .name{font-size:17px;font-weight:750}.list-btn .kg{font-size:14px;font-weight:750;white-space:nowrap}.mini{font-size:13px;color:#687e90;margin:10px 0}.footrow{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}.tag{border-radius:8px;padding:6px 9px;font-size:12px;white-space:nowrap;background:#f5ead5;color:#805a1b}.tag.running{background:#e0efff;color:#195a9a}.tag.done{background:#def3e7;color:#206a46}
 .validation-overview{margin:8px 0 2px;font-size:13px;color:#33506a;line-height:1.6}
@@ -131,14 +131,15 @@
 </style>
 </head>
 <body>
-<header class="head"><div class="eyebrow">APLICACIÓN INDEPENDIENTE · V0.5.25</div><h1>Control de Cargas Móvil</h1></header>
+<header class="head"><div class="eyebrow">APLICACIÓN INDEPENDIENTE · V0.5.26</div><h1>Control de Cargas Móvil</h1></header>
 <main class="wrap">
 <div class="toolbar"><div><h2>Preparación de cargas</h2><div class="muted">Ordenadas por peso · Datos locales de este dispositivo</div></div><div class="stats-toolbar"><button class="btn light" type="button" id="openStats">▥ Estadísticas</button><label class="btn" for="pdfs">＋ Importar PDF</label><input id="pdfs" type="file" accept="application/pdf,.pdf" multiple class="hidden"></div></div>
 <section class="panel" id="cloudAccess" style="margin-bottom:14px"><div class="line" style="align-items:center;flex-wrap:wrap"><div><h3 style="margin:0 0 5px">Conexión compartida</h3><div class="muted" id="cloudStatus">Sin conectar · Los registros locales permanecen intactos.</div></div><div class="actions"><button class="btn light" type="button" id="cloudSync" disabled>↑ Sincronizar 1 carga</button><button class="btn light" type="button" id="cloudReceive" disabled>↓ Recibir prueba</button><button class="btn" type="button" id="cloudBatch" disabled>⇄ Sincronizar nuevas</button><button class="btn ghost" type="button" id="cloudLogout" hidden>Cerrar sesión</button></div></div><div class="muted" id="cloudLastSync" style="margin-top:9px">Última sincronización finalizada sin errores: ninguna</div><div class="muted" id="cloudBatchReport" role="status" aria-live="polite" style="margin-top:9px;white-space:pre-wrap;overflow-wrap:anywhere"></div><form id="cloudLogin" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px"><input type="email" id="cloudEmail" placeholder="Correo electrónico" autocomplete="username" required style="flex:1;min-width:180px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><input type="password" id="cloudPassword" placeholder="Contraseña" autocomplete="current-password" required style="flex:1;min-width:160px;padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Entrar</button></form><div style="margin-top:10px"><button class="btn light" type="button" id="cloudRecover">¿No tienes contraseña? Recuperarla</button></div><form id="cloudNewPasswordForm" hidden style="margin-top:12px"><label for="cloudNewPassword">Nueva contraseña (mínimo 8 caracteres)</label><div class="actions" style="margin-top:6px"><input id="cloudNewPassword" type="password" minlength="8" autocomplete="new-password" placeholder="Nueva contraseña" style="padding:11px;border:1px solid #cbd9e3;border-radius:9px"><button type="submit" class="btn">Guardar contraseña</button></div></form><div class="muted" style="margin-top:7px">«Sincronizar nuevas» compara todas las cargas y solicita confirmación antes de enviar o recibir. Las cargas con diferencias no se sobrescriben y los PDF originales permanecen en el dispositivo.</div></section>
-<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.25</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
+<div class="updater"><div><strong>Versión instalada: <span id="installedVersion">0.5.26</span></strong><div id="updateMessage" role="status" aria-live="polite">Consulta las nuevas versiones publicadas.</div></div><button class="btn light" id="updateApp" type="button">⟳ Buscar actualización</button></div>
 <div id="feedback" class="notice" role="status" aria-live="polite">Puedes seleccionar varias hojas de carga desde Archivos o OneDrive.</div>
 <div class="cards"><div class="metric"><strong id="nLoads">0</strong><span>Cargas</span></div><div class="metric"><strong id="nRefs">0</strong><span>Referencias</span></div><div class="metric"><strong id="nWeight">0</strong><span>Kg totales</span></div></div>
 <div id="validationOverview" class="validation-overview" aria-live="polite"></div>
+<section class="panel" style="margin-top:14px" aria-label="Resumen diario"><h3>Resumen diario</h3><p class="muted">Por fecha de carga del PDF. Los filtros también se aplican al listado.</p><div class="two"><div class="stats-filter"><label for="dailyDate">Fecha de carga</label><input type="date" id="dailyDate"></div><div class="stats-filter"><label for="dailyOperator">Operario</label><select id="dailyOperator"></select></div><div class="stats-filter"><label for="dailyRoute">Ruta</label><select id="dailyRoute"></select></div><div class="stats-filter"><label for="dailyPlate">Matrícula</label><select id="dailyPlate"></select></div></div><div class="actions"><button class="btn light" id="dailyToday">Hoy</button><button class="btn ghost" id="dailyReset">Todo el historial</button></div><div class="d-grid" id="dailyCounts" aria-live="polite"></div><p class="thin" id="dailyNote"></p></section>
 <div class="filters" id="filters"><button class="filter active" data-filter="Todas">Todas</button><button class="filter" data-filter="Verificadas">✓ Verificadas</button><button class="filter" data-filter="Con incidencias">⚠ Con incidencias</button><button class="filter" data-filter="Pendiente">Pendientes</button><button class="filter" data-filter="En curso">En curso</button><button class="filter" data-filter="Finalizada">Finalizadas</button></div>
 <section class="panel"><div class="line"><div><h3>Cargas importadas</h3><div class="muted">Pulsa una carga para registrar su preparación.</div></div></div><div class="batch-toolbar"><button class="btn light" id="selectAll" type="button">☑ Seleccionar todas</button><button class="btn light" id="selectVisible" type="button">Marcar visibles</button><button class="btn ghost" id="clearSelection" type="button">Desmarcar</button><button class="btn" id="printSelected" type="button" disabled>▤ Imprimir seleccionadas (0)</button></div><div id="loadList"></div><div class="bottom"><button class="btn light" id="backup">Guardar copia</button><label class="btn ghost" for="restoreInput">Restaurar copia</label><input id="restoreInput" type="file" accept="application/json,.json" class="hidden"><button class="btn ghost" id="clear">Eliminar cargas</button></div></section>
 <p class="smallprint">Originales PDF guardados solo en este dispositivo · Copias JSON sin PDF · Solo se sincronizan cargas nuevas y con confirmación</p>
@@ -169,17 +170,18 @@
 <div class="screen" id="detail"><div class="detail-head"><button class="back" id="back">← Volver a cargas</button><h2 id="detailId"></h2><div id="detailDriver" style="opacity:.78;margin-top:8px"></div></div><div class="wrap">
 <section class="panel"><h3>Información de carga</h3><div class="d-grid" id="detailData"></div></section>
 <section class="panel"><div class="line"><h3>Resumen de mercancía</h3><button class="btn light" type="button" id="detailReport">▤ Generar listado</button></div><div id="verification"></div><div id="formats"></div><div id="aisles"></div><div id="unlocated"></div></section>
-<section class="panel"><h3>Preparación</h3><label class="formlabel" for="operator">Operario responsable</label><select id="operator"><option value="">Seleccionar operario…</option></select><div class="actions"><input type="text" id="newOperator" placeholder="Nuevo operario" aria-label="Nombre del operario"><button class="btn light" id="addOperator">Añadir</button></div><div class="actions"><button class="btn" id="start">▶ Iniciar</button><button class="btn light" id="finish">✓ Finalizar</button></div><p class="muted" id="timeStatus"></p><h4>Corrección manual de horarios</h4><div class="two"><div><label class="formlabel" for="editStart">Inicio</label><input type="datetime-local" id="editStart"></div><div><label class="formlabel" for="editEnd">Final</label><input type="datetime-local" id="editEnd"></div></div><button class="btn light" style="margin-top:12px" id="saveHours">Guardar horarios</button><p class="thin">Las modificaciones se guardan solo en este dispositivo.</p></section>
+<section class="panel"><h3>Preparación</h3><label class="formlabel" for="loadRoute">Ruta (si no figura en el PDF)</label><input type="text" id="loadRoute" placeholder="Sin ruta indicada"><button class="btn light" id="saveRoute" style="margin-top:8px">Guardar ruta</button><label class="formlabel" for="operator">Operario responsable</label><select id="operator"><option value="">Seleccionar operario…</option></select><div class="actions"><input type="text" id="newOperator" placeholder="Nuevo operario" aria-label="Nombre del operario"><button class="btn light" id="addOperator">Añadir</button></div><div class="actions"><button class="btn" id="start">▶ Iniciar</button><button class="btn light" id="finish">✓ Finalizar</button></div><p class="muted" id="timeStatus"></p><h4>Corrección manual de horarios</h4><div class="two"><div><label class="formlabel" for="editStart">Inicio</label><input type="datetime-local" id="editStart"></div><div><label class="formlabel" for="editEnd">Final</label><input type="datetime-local" id="editEnd"></div></div><button class="btn light" style="margin-top:12px" id="saveHours">Guardar horarios</button><p class="thin">Las modificaciones se guardan solo en este dispositivo.</p></section>
 </div></div>
 <div class="screen" id="reportScreen" aria-label="Listado de preparación" style="z-index:40">
   <header class="detail-head report-controls"><button class="back" type="button" id="closeReport">← Volver a la aplicación</button><h2>Listado de preparación</h2><p style="margin-bottom:0;opacity:.8">Vista previa del documento · A4</p><button class="btn" type="button" id="printReport" style="margin-top:13px;background:#fff;color:#173956">▤ Imprimir / Guardar PDF</button></header>
   <main class="report-preview"><div id="originalPages"></div><div id="reportPaper" class="report-paper"></div></main>
 </div>
 <script type="module">
+import {dayOf,dailyRows,counts,fingerprint,revised} from './daily-import.mjs';
 import {parseDocumentPages,summarize} from './core.mjs';
 import {guardarOriginal,prepararMercancia,limpiarVista,borrarTodosOriginales,leerOriginal} from './printing.mjs';
 const $=id=>document.getElementById(id);
-const APP_VERSION='0.5.25';
+const APP_VERSION='0.5.26';
 const UPDATE_ENDPOINT='./version.json';
 const compareVersions=(v1,v2)=>{
  const a=String(v1).split('.').map(x=>Number(x)||0),b=String(v2).split('.').map(x=>Number(x)||0);
@@ -368,6 +370,21 @@ function syncSelectionUI(){
  const btn=$('printSelected');const n=selectedIds.size;
  btn.disabled=n===0;btn.textContent='▤ Imprimir seleccionadas ('+n+')';
 }
+function dailyScope(){return dailyRows(loads,{day:$('dailyDate').value,operator:$('dailyOperator').value,route:$('dailyRoute').value,plate:$('dailyPlate').value})}
+function matchesState(r){return filter==='Todas'||(filter==='Verificadas'?isVerified(r):filter==='Con incidencias'?!isVerified(r):stateOf(r)===filter)}
+function dailySummary(){
+ for(const [id,key,label] of [['dailyOperator','operator','Todos los operarios'],['dailyRoute','route','Todas las rutas'],['dailyPlate','plate','Todas las matrículas']]){
+  const el=$(id),value=el.value,options=[...new Set(loads.map(r=>r[key]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+  el.innerHTML='<option value="">'+label+'</option>'+options.map(v=>'<option value="'+html(v)+'">'+html(v)+'</option>').join('');if(options.includes(value))el.value=value;
+ }
+ const rows=dailyScope(),totals=counts(rows);
+ $('dailyCounts').innerHTML=[['Total',rows.length],...Object.entries(totals)].map(([label,n])=>'<div class="d-cell"><small>'+html(label)+'</small><strong>'+n+'</strong></div>').join('');
+ $('dailyNote').textContent=loads.filter(r=>!dayOf(r)).length+' cargas sin fecha reconocida (visibles en Todo el historial). '+loads.filter(r=>!r.route).length+' sin ruta indicada.';
+}
+for(const id of ['dailyDate','dailyOperator','dailyRoute','dailyPlate'])$(id).addEventListener('change',list);
+$('dailyToday').addEventListener('click',()=>{const d=new Date();$('dailyDate').value=new Date(d-d.getTimezoneOffset()*60000).toISOString().slice(0,10);filter='Todas';list()});
+$('dailyReset').addEventListener('click',()=>{for(const id of ['dailyDate','dailyOperator','dailyRoute','dailyPlate'])$(id).value='';filter='Todas';list()});
+const today=new Date();$('dailyDate').value=new Date(today-today.getTimezoneOffset()*60000).toISOString().slice(0,10);
 function list(){
  for(const id of selectedIds)if(!loads.some(r=>r.id===id))selectedIds.delete(id);
  loads.sort((a,b)=>(Number(b.weight)||0)-(Number(a.weight)||0));
@@ -377,7 +394,8 @@ function list(){
  const verified=loads.filter(isVerified).length;
  const issues=loads.length-verified;
  $('validationOverview').textContent=verified+' cargas verificadas · '+issues+' con incidencias. Puedes imprimir todas; las que tengan errores irán con advertencia y resumen provisional.';
- const visible=loads.filter(r=>filter==='Todas'||(filter==='Verificadas'?isVerified(r):filter==='Con incidencias'?!isVerified(r):stateOf(r)===filter));
+ dailySummary();
+ const visible=dailyScope().filter(matchesState);
  $('loadList').innerHTML=visible.map(r=>{
   const status=stateOf(r);
   const valid=isVerified(r);
@@ -401,7 +419,7 @@ $('loadList').addEventListener('change',e=>{
 });
 $('selectAll').addEventListener('click',()=>{for(const r of loads)selectedIds.add(r.id);list()});
 $('selectVisible').addEventListener('click',()=>{
- for(const r of loads)if(filter==='Todas'||stateOf(r)===filter)selectedIds.add(r.id);
+ for(const r of dailyScope().filter(matchesState))selectedIds.add(r.id);
  list();
 });
 $('clearSelection').addEventListener('click',()=>{selectedIds.clear();list()});
@@ -415,8 +433,9 @@ $('loadList').addEventListener('keydown',e=>{if(e.target.matches('[data-load]')&
 const localTime=v=>{if(!v)return '';const d=new Date(v);if(!Number.isFinite(d.getTime()))return '';return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16)};
 const elapsed=(a,b)=>{if(!a||!b)return '';const minutes=Math.round((new Date(b)-new Date(a))/60000);return minutes>=0?' · Duración: '+Math.floor(minutes/60)+' h '+String(minutes%60).padStart(2,'0')+' min':''};
 function openDetail(id){chosen=loads.find(r=>r.id===id);if(!chosen)return;
+ $('loadRoute').value=chosen.route||'';
  $('detailId').textContent=chosen.id;$('detailDriver').textContent=chosen.driver||'Repartidor no identificado';
- const values=[['Peso'+(chosen.mixedWarehouse?' del vehículo (global)':''),chosen.weight==null?'Sin verificar':fmt(chosen.weight)+' kg'],['Referencias COR 1',chosen.refs??'Sin verificar'],['Almacén',chosen.warehouse||'No indicado'],['Visitas',chosen.visits??'Sin dato'],['Matrícula',chosen.plate||'Sin dato'],['Palés grandes',Number.isInteger(chosen.palletsLarge)?chosen.palletsLarge:'No indicado'],['Palés pequeños',Number.isInteger(chosen.palletsSmall)?chosen.palletsSmall:'No indicado'],['Fecha carga',chosen.date||'Sin dato'],['Archivo PDF',chosen.source||'No consta']];
+ const values=[['Peso'+(chosen.mixedWarehouse?' del vehículo (global)':''),chosen.weight==null?'Sin verificar':fmt(chosen.weight)+' kg'],['Referencias COR 1',chosen.refs??'Sin verificar'],['Almacén',chosen.warehouse||'No indicado'],['Visitas',chosen.visits??'Sin dato'],['Matrícula',chosen.plate||'Sin dato'],['Palés grandes',Number.isInteger(chosen.palletsLarge)?chosen.palletsLarge:'No indicado'],['Palés pequeños',Number.isInteger(chosen.palletsSmall)?chosen.palletsSmall:'No indicado'],['Ruta',chosen.route||'Sin dato'],['Fecha carga',chosen.date||'Sin dato'],['Versiones importadas',chosen.importHistory?.length||1],['Archivo PDF',chosen.source||'No consta']];
  $('detailData').innerHTML=values.map(([label,v])=>'<div class="d-cell"><small>'+html(label)+'</small><strong>'+html(v)+'</strong></div>').join('');
  const p=chosen.products||[];let verified=chosen.verified===true;
  if(verified){
@@ -435,7 +454,8 @@ function openDetail(id){chosen=loads.find(r=>r.id===id);if(!chosen)return;
  $('timeStatus').textContent='Estado: '+stateOf(chosen)+(chosen.started?' · Inicio: '+new Date(chosen.started).toLocaleString('es-ES'):'')+(chosen.finished?' · Fin: '+new Date(chosen.finished).toLocaleString('es-ES'):'')+elapsed(chosen.started,chosen.finished)+(chosen.automaticEnd?' · Automático: '+chosen.automaticEndReason:'');
  $('detail').classList.add('show');
 }
-$('back').addEventListener('click',()=>$('detail').classList.remove('show'));
+$('saveRoute').addEventListener('click',()=>{if(!chosen)return;const previous=chosen.route;chosen.route=$('loadRoute').value.trim();if(!persist())chosen.route=previous;list();openDetail(chosen.id)});
+$('back').addEventListener('click',()=>{$('detail').classList.remove('show');list()});
 $('filters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;list()});
 $('operator').addEventListener('change',()=>{if(chosen){chosen.operator=$('operator').value;persist()}});
 $('addOperator').addEventListener('click',()=>{if(!chosen)return;const name=$('newOperator').value.trim();if(!name)return alert('Indica un nombre');if(!operators.some(n=>n.toLowerCase()===name.toLowerCase()))operators.push(name);chosen.operator=name;persist();$('newOperator').value='';openDetail(chosen.id)});
@@ -810,19 +830,36 @@ async function readPdf(file){
  for(let n=1;n<=pdf.numPages;n++){const pg=await pdf.getPage(n);const cont=await pg.getTextContent();const h=pg.getViewport({scale:1}).height;const items=cont.items.filter(i=>typeof i.str==='string').map(i=>({text:i.str,x:i.transform?.[4]??0,y:h-(i.transform?.[5]??0)}));pages.push({number:n,width:pg.getViewport({scale:1}).width,items})}
  return parseDocumentPages(pages,file.name);
 }
-$('pdfs').addEventListener('change',async e=>{const files=[...e.target.files];if(!files.length)return;let ok=0,errors=[];notify('Procesando '+files.length+' documento(s)…');
- for(let k=0;k<files.length;k++){
+let importing=false;
+$('pdfs').addEventListener('change',async e=>{
+ if(importing)return;const files=[...e.target.files];if(!files.length)return;importing=true;e.target.disabled=true;
+ let added=0,updated=0,duplicates=0,cancelled=0,errors=[];
+ try{for(let k=0;k<files.length;k++){
   const file=files[k];notify('Leyendo '+(k+1)+'/'+files.length+': '+file.name);
-  try{const incoming=await readPdf(file);if(!incoming.id)throw new Error('Sin identificador de carga');
-   // Primero guardar el PDF original. Si falla, conservamos intacta la carga anterior.
+  try{
+   const hash=await fingerprint(file);
+   const identical=loads.find(r=>r.pdfHash===hash);
+   if(identical&&await leerOriginal(identical.id)){duplicates++;continue;}
+   const incoming=await readPdf(file);if(!incoming.id)throw new Error('Sin identificador de carga');
+   const old=loads.find(x=>x.id===incoming.id),original=old?await leerOriginal(incoming.id):null;
+   if(original&&await fingerprint(original)===hash){duplicates++;continue;}
+   if(old&&old.pdfHash!==hash&&!confirm('Ya existe la carga '+incoming.id+'. Este PDF es diferente.\nPeso: '+(old.weight??'—')+' → '+(incoming.weight??'—')+' kg\nReferencias: '+(old.refs??'—')+' → '+(incoming.refs??'—')+'\nFecha: '+(old.date||'—')+' → '+(incoming.date||'—')+'\n¿Actualizar el documento conservando operario, horarios y estado?')){cancelled++;continue;}
+   const next=revised(old,incoming,hash),previous=loads;
+   // Guardar cada versión bajo una clave propia antes de actualizar la activa.
+   if(original)await guardarOriginal(incoming.id+'::'+(old.pdfHash||await fingerprint(original)),original);
+   await guardarOriginal(incoming.id+'::'+hash,file);
    await guardarOriginal(incoming.id,file);
-   const old=loads.find(x=>x.id===incoming.id);
-   if(old)Object.assign(incoming,{operator:old.operator||'',started:old.started||null,finished:old.finished||null,status:stateOf(old),automaticEnd:old.automaticEnd||false,automaticEndReason:old.automaticEndReason||''});
-   else Object.assign(incoming,{operator:'',started:null,finished:null,status:'Pendiente'});
-   incoming.importedAt=new Date().toISOString();incoming.warehouseParsingVersion=1;loads=loads.filter(x=>x.id!==incoming.id);loads.push(incoming);ok++;
-  }catch(err){errors.push(file.name+': '+(err.message||err))}persist();list();
- }
- notify(ok+' PDF importados.\n'+loads.filter(isVerified).length+' cargas verificadas · '+loads.filter(r=>!isVerified(r)).length+' con incidencias. Usa el filtro Con incidencias para revisarlas.'+(errors.length?'\nNo importados:\n'+errors.join('\n'):''),errors.length?'warn':'ok');e.target.value='';
+   loads=loads.filter(x=>x.id!==incoming.id).concat(next);
+   try{localStorage.setItem(KEY,JSON.stringify(loads))}catch(storageError){
+    loads=previous;
+    if(original)await guardarOriginal(incoming.id,original);
+    throw new Error('No se pudo guardar la carga. Se conserva el registro anterior.');
+   }
+   if(old)updated++;else added++;
+  }catch(err){errors.push(file.name+': '+(err.message||err))}
+  list();
+ }}finally{importing=false;e.target.disabled=false;e.target.value='';list();}
+ notify(added+' nuevas · '+updated+' actualizadas · '+duplicates+' duplicadas omitidas · '+cancelled+' canceladas.'+(errors.length?'\nNo importados:\n'+errors.join('\n'):''),errors.length?'warn':'ok');
 });
 $('clear').addEventListener('click',async()=>{
  if(!confirm('Se eliminarán todas las cargas, sus PDF originales y los registros de tiempos de este dispositivo. ¿Continuar?'))return;
