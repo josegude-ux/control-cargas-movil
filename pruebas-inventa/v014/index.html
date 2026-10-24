@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>INVENTA · Bocetos A y B</title><style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#14263c;background:#e7edf3;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}
+.app{max-width:500px;margin:auto;min-height:100dvh;background:white;display:flex;flex-direction:column}
+header{background:#132b48;color:white;padding:calc(12px + env(safe-area-inset-top)) 14px 11px;flex-shrink:0}
+h1,h2,h3,p{margin:0}h1{font-size:20px;letter-spacing:1px}header small{font-size:10px;color:#a9c0d6}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:10px;background:#0c1e34;padding:4px;border-radius:12px}
+.tabs button{border:0;background:transparent;color:#c8d4e3;border-radius:10px;padding:11px 4px;font-size:13px;font-weight:800}
+.tabs button.on{background:#fff;color:#123358}
+.page{display:flex;flex-direction:column;flex:1;min-height:0}
+.hide{display:none!important}.product{padding:11px 15px;background:#f5f8fc;border-bottom:1px solid #e1e7f0}
+.product small{font-size:11px;color:#54718d}.product b{display:block;font-size:15px;margin:3px 0}
+.content{padding:12px;overflow-y:auto;flex:1;min-height:0}
+.card{border:1px solid #dce6f0;border-radius:15px;padding:12px;margin-bottom:10px;background:#fff}
+h2{font-size:16px;margin-bottom:9px}.direct{display:grid;grid-template-columns:1fr 110px;gap:8px;align-items:end}
+label{display:block;font-size:11px;font-weight:800;margin-bottom:5px;color:#46607a}
+input{width:100%;height:49px;padding:5px 9px;border:2px solid #cad8e7;border-radius:11px;font-size:24px;text-align:center;color:#143353;font-weight:800;background:#fbfdff;min-width:0}
+input:focus{outline:0;border-color:#1778c5;box-shadow:0 0 0 3px #1778c522}
+.act{border:0;background:#176fb1;color:white;border-radius:11px;font-weight:800;min-height:49px;padding:7px;font-size:14px}
+button:disabled{opacity:.4}.triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.triple label{text-align:center;font-size:10px;min-height:24px;line-height:1.1}
+.preview{display:flex;justify-content:space-between;align-items:center;background:#eef5fc;border-radius:10px;padding:9px 10px;margin:10px 0;font-size:12px;color:#55748f}
+.preview strong{font-size:23px;color:#17395c}.full{width:100%}
+.line{display:flex;justify-content:space-between;gap:9px;border-bottom:1px solid #e8edf4;padding:9px 0;font-size:12px}
+.line span{min-width:0}.line b{white-space:nowrap}.line button{background:transparent;border:0;color:#b52f36;font-size:11px;font-weight:700}
+.empty{font-size:12px;color:#8290a4}.bottom{padding:10px 13px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #dae5f0;background:#f4f8fc;flex-shrink:0}
+.sum{display:flex;justify-content:space-between;align-items:end}.sum small{font-weight:900;color:#51708f}.sum b{font-size:32px;color:#143c66}.tools{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:10px;color:#658097}
+.tools button{background:#e3ecf5;border:0;border-radius:8px;padding:6px 9px;color:#345a7c;font-weight:800}
+.note{min-height:17px;margin-top:5px;font-size:11px;font-weight:800;color:#19805a}
+#B{background:#111d2c;color:#fff}.bproduct{background:#1c2b3e;border-color:#3c4e68}.bproduct small{color:#b3c6d8}
+.bbody{display:flex;flex-direction:column;flex:1;min-height:0;gap:8px;padding:11px 13px 8px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.modes button{border:1px solid #455c78;background:#293a50;border-radius:12px;padding:10px;color:#e9f4ff;font-size:14px;font-weight:850}
+.modes button.on{background:#b5f4d0;border-color:#b5f4d0;color:#14372f}
+.step{display:flex;justify-content:space-between;font-size:12px;color:#b8cede;font-weight:850}
+.readout{background:#1f3046;border:1px solid #435876;border-radius:15px;padding:10px 13px}
+.readout small{display:block;color:#aec5dc;font-size:12px}
+.readout strong{display:block;text-align:right;font-size:49px;line-height:1.12;overflow:hidden}
+.readout span{color:#b5f4d0;font-size:12px;display:block;min-height:17px}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:7px;flex:1;min-height:195px;max-height:330px}
+.keypad button{background:#2e4058;color:#fff;border:1px solid #475e7a;border-radius:13px;font-size:25px;font-weight:850;min-height:37px}
+.keypad button.extra{font-size:15px;background:#465672}
+.go{background:#b5f4d0;color:#193b2d;border:0;border-radius:12px;min-height:48px;font-size:15px;font-weight:900}
+.bhistory{background:#203149;border:1px solid #435772;border-radius:9px;padding:8px;display:flex;justify-content:space-between;align-items:center}
+.bhistory span{font-size:11px;color:#c0d3e8}.bhistory button{border:0;background:transparent;color:#c1f5d6;font-weight:900;font-size:11px}
+.bbottom{background:#192a3f;border-color:#3b4c64}.bbottom .sum small{color:#bdd3e8}.bbottom .sum b{color:#b5f4d0}.bbottom .tools{color:#a4b9d1}.bbottom .tools button{background:#344a63;color:white}.bbottom .note{color:#b5f4d0}
+.modal{position:fixed;inset:0;background:#071320ad;display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modal .panel{background:white;color:#142b43;padding:18px;border-radius:18px;width:min(460px,100%);max-height:80dvh;overflow:auto}
+.modal h2{margin-bottom:12px}.close{float:right;border:0;background:#edf1f6;border-radius:8px;padding:6px 10px}
+@media(max-height:740px){.product{padding:8px 13px}.content{padding:9px}.card{padding:10px;margin-bottom:8px}input,.act{height:43px;min-height:43px}.bbody{padding:8px;gap:6px}.keypad{min-height:160px;gap:5px}.readout strong{font-size:40px}.go{min-height:43px}.bottom{padding-top:7px}.sum b{font-size:27px}}
+</style></head><body>
+<div class="app"><header><h1>INVENTA <small>· COMPARATIVA v0.14</small></h1><div class="tabs"><button id="tabA" class="on" onclick="view('A')">A · TODO VISIBLE</button><button id="tabB" onclick="view('B')">B · TECLADO GUIADO</button></div></header>
+<section id="A" class="page"><div class="product"><small>UBICACIÓN K00-P01 · PRUEBA</small><b>GINEBRA SEAGRAM'S 70 CL</b><small>PRD0003563 · Botellas</small></div><div class="content">
+<div class="card"><h2>Introducir cantidad directa</h2><div class="direct"><div><label for="d">Botellas</label><input id="d" type="text" inputmode="numeric" placeholder="0" autocomplete="off"></div><button class="act" id="dAdd" onclick="addDirect()">+ Añadir</button></div></div>
+<div class="card"><h2>Calcular por palé / cajas</h2><div class="triple"><div><label for="base">Cajas por base</label><input id="base" type="text" inputmode="numeric" placeholder="8"></div><div><label for="height">Alturas</label><input id="height" type="text" inputmode="numeric" placeholder="4"></div><div><label for="per">Botellas por caja</label><input id="per" type="text" inputmode="numeric" placeholder="6"></div></div><div class="preview"><span>Resultado del palé</span><strong id="aCalc">—</strong></div><button class="act full" id="pAdd" onclick="addPallet()">+ Sumar palé</button></div>
+<div class="card"><h2>Últimas cantidades</h2><div id="aList" class="empty">Todavía no has contado nada.</div></div></div>
+<footer class="bottom"><div class="sum"><small>TOTAL ACUMULADO</small><div><b id="aTotal">0</b> <small>botellas</small></div></div><div class="tools"><span>Directas + palés</span><button onclick="undo('A')" id="aUndo">↶ Deshacer</button></div><div id="aMsg" class="note"></div></footer></section>
+<section id="B" class="page hide"><div class="product bproduct"><small>UBICACIÓN K00-P01 · PRUEBA</small><b>GINEBRA SEAGRAM'S 70 CL</b><small>PRD0003563 · Botellas</small></div><div class="bbody"><div class="modes"><button class="on" id="bd" onclick="bmode('direct')">+ CANTIDAD</button><button id="bp" onclick="bmode('pallet')">▦ PALÉ</button></div><div class="step"><span id="step">Introducir botellas</span><span id="fraction">DIRECTO</span></div><div class="readout"><small id="bLabel">Cantidad de botellas</small><strong id="number">0</strong><span id="explanation">Escribe y pulsa Añadir.</span></div><div class="keypad">
+<button onclick="digit('1')">1</button><button onclick="digit('2')">2</button><button onclick="digit('3')">3</button>
+<button onclick="digit('4')">4</button><button onclick="digit('5')">5</button><button onclick="digit('6')">6</button>
+<button onclick="digit('7')">7</button><button onclick="digit('8')">8</button><button onclick="digit('9')">9</button>
+<button class="extra" onclick="clearB()">BORRAR</button><button onclick="digit('0')">0</button><button class="extra" onclick="backB()">⌫</button></div>
+<button class="go" id="bGo" onclick="nextB()">+ AÑADIR CANTIDAD</button><div class="bhistory"><span id="bCount">0 movimientos</span><button onclick="historyView('B')">VER / CORREGIR ›</button></div></div>
+<footer class="bottom bbottom"><div class="sum"><small>TOTAL ACUMULADO</small><div><b id="bTotal">0</b> <small>botellas</small></div></div><div class="tools"><span>Directas + palés</span><button onclick="undo('B')" id="bUndo">↶ Deshacer</button></div><div id="bMsg" class="note"></div></footer></section>
+</div>
+<div class="modal hide" id="modal"><div class="panel"><button class="close" onclick="closeHistory()">Cerrar ✕</button><h2 id="mTitle">Movimientos</h2><div id="mList"></div><p style="font-size:11px;color:#789;margin-top:15px">Simulación independiente, no guarda datos reales.</p></div></div>
+<script>
+"use strict";
+var data={A:[],B:[]}, MAX=999999999;
+var $=function(id){return document.getElementById(id)};
+var fmt=function(n){return n.toLocaleString('es-ES')};
+function int(s){if(!/^[0-9]{1,9}$/.test(String(s)))return null;var n=Number(s);return n>0&&n<=MAX?n:null}
+function total(v){return data[v].reduce(function(a,x){return a+x.n},0)}
+function notice(v,s){$(v.toLowerCase()+'Msg').textContent=s}
+function add(v,n,label){if(!Number.isSafeInteger(n)||n<1||n>MAX||total(v)+n>MAX){notice(v,'Cantidad inválida o total demasiado grande.');return false}
+data[v].push({n:n,label:label});render();notice(v,'Añadidas '+fmt(n)+' botellas. Total '+fmt(total(v))+'.');return true}
+function render(){['A','B'].forEach(function(v){$(v.toLowerCase()+'Total').textContent=fmt(total(v));$(v.toLowerCase()+'Undo').disabled=!data[v].length});
+$('aList').innerHTML=data.A.length?data.A.slice(-2).reverse().map(function(x){return '<div class="line"><span>'+safe(x.label)+'</span><b>+'+fmt(x.n)+'</b></div>'}).join(''):'<div class="empty">Todavía no has contado nada.</div>';
+$('bCount').textContent=data.B.length+' movimientos'}
+function safe(s){return String(s).replace(/[&<>"]/g,function(x){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[x]})}
+function view(v){$('A').classList.toggle('hide',v!=='A');$('B').classList.toggle('hide',v!=='B');$('tabA').classList.toggle('on',v==='A');$('tabB').classList.toggle('on',v==='B');document.activeElement.blur();render()}
+function undo(v){if(data[v].length){var n=data[v].pop().n;render();notice(v,'Deshechas '+fmt(n)+' botellas.')}}
+function inputs(){['d','base','height','per'].forEach(function(id){$(id).addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').slice(0,9);updateA()});$(id).addEventListener('focus',function(){this.select()})})}
+function calcA(){var a=int($('base').value),b=int($('height').value),c=int($('per').value),n=(a&&b&&c)?a*b*c:0;return Number.isSafeInteger(n)&&n<=MAX?n:0}
+function updateA(){$('dAdd').disabled=!int($('d').value);var n=calcA();$('aCalc').textContent=n?fmt(n):'—';$('pAdd').disabled=!n}
+function addDirect(){var n=int($('d').value);if(n&&add('A',n,fmt(n)+' botellas · directa'))$('d').value='';updateA()}
+function addPallet(){var n=calcA();if(n&&add('A',n,$('base').value+' × '+$('height').value+' × '+$('per').value+' · palé')){$('base').value='';$('height').value=''}updateA()}
+var mode='direct',step=0,current='',parts=[0,0,0],labels=['Cajas por base','Número de alturas','Botellas por caja'];
+function bmode(v){mode=v;step=0;current='';parts=[0,0,0];drawB()}
+function digit(n){if(current.length>=9)return;current=(current+n).replace(/^0+(?=[0-9])/,'');if(current==='0')current='';drawB()}
+function clearB(){current='';drawB()}
+function backB(){current=current.slice(0,-1);drawB()}
+function nextB(){var n=int(current);if(!n)return;if(mode==='direct'){if(add('B',n,fmt(n)+' botellas · directa'))current=''}else{parts[step]=n;if(step<2){step++;current=''}else{var amount=parts[0]*parts[1]*parts[2];if(add('B',amount,parts.join(' × ')+' · palé')){step=0;current='';parts=[0,0,0]}}}drawB()}
+function drawB(){
+$('bd').classList.toggle('on',mode==='direct');$('bp').classList.toggle('on',mode==='pallet');$('number').textContent=current||'0';var n=int(current);
+$('step').textContent=mode==='direct'?'Introducir botellas':'Palé · paso '+(step+1)+' de 3';$('fraction').textContent=mode==='direct'?'DIRECTO':(step+1)+'/3';
+$('bLabel').textContent=mode==='direct'?'Cantidad de botellas':labels[step];
+$('explanation').textContent=mode==='direct'?'Escribe y pulsa Añadir.':step===0?'Después te pedirá las alturas.':step===1?'Base: '+parts[0]+' cajas.':parts[0]+' × '+parts[1]+' × '+(n||'…')+' = '+(n?fmt(parts[0]*parts[1]*n):'…');
+$('bGo').textContent=mode==='direct'?'+ AÑADIR CANTIDAD':step===2?'+ SUMAR PALÉ':'SIGUIENTE ›';
+$('bGo').disabled=!n||(mode==='pallet'&&step===2&&parts[0]*parts[1]*n>MAX)}
+function historyView(v){window.hv=v;var arr=data[v];$('mTitle').textContent='Historial · Boceto '+v;$('mList').innerHTML=arr.length?arr.map(function(x,i){return '<div class="line"><span>'+safe(x.label)+'<br><b>+'+fmt(x.n)+' botellas</b></span><button onclick="removeItem(\''+v+'\','+i+')">Eliminar</button></div>'}).join(''):'<p class="empty">Sin movimientos.</p>';$('modal').classList.remove('hide')}
+function removeItem(v,i){data[v].splice(i,1);render();historyView(v)}
+function closeHistory(){$('modal').classList.add('hide')}
+$('modal').addEventListener('click',function(e){if(e.target===$('modal'))closeHistory()});
+inputs();updateA();drawB();render();
+</script></body></html>
